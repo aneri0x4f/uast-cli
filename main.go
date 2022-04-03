@@ -16,6 +16,9 @@ import (
 //go:embed LICENSE
 var LICENSE string
 
+//go:embed CITATIONS.md
+var CITE string
+
 func main() {
 	const (
 		UAST       string = "uast"
@@ -105,11 +108,16 @@ func main() {
 						buf.WriteString("`to`: " + *to + "\n")
 						buf.Flush()
 					}
+				case "citation":
+					{
+						buf.WriteString(CITE)
+						buf.Flush()
+					}
 				default:
 					{
 						log.Printf("bad config value: %v: expected %v",
 							l[0],
-							[]string{"from", "to", "license", "config"},
+							[]string{"from", "to", "license", "config", "citation"},
 						)
 					}
 				}
