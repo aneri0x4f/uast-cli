@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	_ "embed"
 	"errors"
 	"flag"
 	"fmt"
@@ -11,6 +12,9 @@ import (
 	"strings"
 	"uast/utils"
 )
+
+//go:embed LICENSE
+var LICENSE string
 
 func main() {
 	const (
@@ -72,6 +76,10 @@ func main() {
 						default:
 							log.Printf("bad `from` value: %v: expected %v", *from, schemes)
 						}
+
+						buf.WriteString("`from`: " + *from + "\n")
+						buf.WriteString("`to`: " + *to + "\n")
+						buf.Flush()
 					}
 				case "to":
 					{
@@ -81,16 +89,31 @@ func main() {
 						default:
 							log.Printf("bad `from` value: %v: expected %v", *from, schemes)
 						}
+
+						buf.WriteString("`from`: " + *from + "\n")
+						buf.WriteString("`to`: " + *to + "\n")
+						buf.Flush()
+					}
+				case "licence", "license":
+					{
+						buf.WriteString(LICENSE)
+						buf.Flush()
+					}
+				case "config":
+					{
+						buf.WriteString("`from`: " + *from + "\n")
+						buf.WriteString("`to`: " + *to + "\n")
+						buf.Flush()
 					}
 				default:
 					{
-						log.Printf("bad config value: %v: expected %v", l[0], []string{"from", "to"})
+						log.Printf("bad config value: %v: expected %v",
+							l[0],
+							[]string{"from", "to", "license", "config"},
+						)
 					}
 				}
 
-				buf.WriteString("`from`: " + *from + "\n")
-				buf.WriteString("`to`: " + *to + "\n")
-				buf.Flush()
 				continue
 			}
 
