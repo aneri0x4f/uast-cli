@@ -1,3 +1,3 @@
-module uast_cli
+module uast
 
 go 1.18

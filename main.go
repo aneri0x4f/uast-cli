@@ -9,7 +9,7 @@ import (
 	"log"
 	"os"
 	"strings"
-	"uast_cli/utils"
+	"uast/utils"
 )
 
 func main() {
@@ -36,14 +36,14 @@ func main() {
 	case RAW, DEVANAGARI, IAST, UAST:
 		buf.WriteString("`from`: " + *from + "\n")
 	default:
-		log.Fatalf("bad `from` value: %v: expected %v", *from, schemes)
+		log.Printf("bad `from` value: %v: expected %v", *from, schemes)
 	}
 
 	switch *to {
 	case RAW, DEVANAGARI, IAST, UAST:
 		buf.WriteString("`to`: " + *to + "\n")
 	default:
-		log.Fatalf("bad `to` value: %v: expected %v", *to, schemes)
+		log.Printf("bad `to` value: %v: expected %v", *to, schemes)
 	}
 
 	for {
@@ -55,10 +55,46 @@ func main() {
 				log.Fatal(err)
 			}
 
+			buf.WriteString("\n")
+			buf.Flush()
 			return
 		} else {
 			var arr []string
-			for _, v := range strings.Split(strings.TrimSpace(s), " ") {
+			l := strings.Split(strings.TrimSpace(s), " ")
+
+			if (len(l) == 2 || len(l) == 1) && strings.HasPrefix(l[0], "!") {
+				switch l[0][1:] {
+				case "from":
+					{
+						switch l[1] {
+						case RAW, DEVANAGARI, IAST, UAST:
+							*from = l[1]
+						default:
+							log.Printf("bad `from` value: %v: expected %v", *from, schemes)
+						}
+					}
+				case "to":
+					{
+						switch l[1] {
+						case RAW, DEVANAGARI, IAST, UAST:
+							*to = l[1]
+						default:
+							log.Printf("bad `from` value: %v: expected %v", *from, schemes)
+						}
+					}
+				default:
+					{
+						log.Printf("bad config value: %v: expected %v", l[0], []string{"from", "to"})
+					}
+				}
+
+				buf.WriteString("`from`: " + *from + "\n")
+				buf.WriteString("`to`: " + *to + "\n")
+				buf.Flush()
+				continue
+			}
+
+			for _, v := range l {
 				if k, ok := utils.Convertors[*from][*to]; ok {
 					for _, f := range k {
 						v = f(v)

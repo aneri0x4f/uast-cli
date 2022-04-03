@@ -1,5 +1,25 @@
 # UAST: Unicode Aware Sanskrit Transliteration
 
+To install this program, you will need to install [Go](https://go.dev/)
+
+After that, simply run:
+
+```bash
+make install
+```
+
+To remove,
+
+```bash
+make clean
+```
+
+To build in current directory,
+
+```bash
+make
+```
+
 If you use this repository, please cite the following paper:
 
 ```bibtex
