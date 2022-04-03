@@ -22,8 +22,8 @@ func main() {
 
 	schemes := []string{UAST, RAW, DEVANAGARI, IAST}
 
-	from := flag.String("from", RAW, fmt.Sprintf("from schema (%v)", schemes))
-	to := flag.String("to", IAST, fmt.Sprintf("to schema (%v)", schemes))
+	from := flag.String("from", UAST, fmt.Sprintf("from schema (%v)", schemes))
+	to := flag.String("to", DEVANAGARI, fmt.Sprintf("to schema (%v)", schemes))
 
 	flag.Parse()
 
