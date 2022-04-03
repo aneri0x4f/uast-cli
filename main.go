@@ -113,11 +113,17 @@ func main() {
 						buf.WriteString(CITE)
 						buf.Flush()
 					}
+				case "help":
+					{
+						log.Printf("Available commands: %v",
+							[]string{"from", "to", "license", "config", "help", "citation"},
+						)
+					}
 				default:
 					{
 						log.Printf("bad config value: %v: expected %v",
 							l[0],
-							[]string{"from", "to", "license", "config", "citation"},
+							[]string{"from", "to", "license", "config", "help", "citation"},
 						)
 					}
 				}
