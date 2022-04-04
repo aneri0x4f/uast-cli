@@ -573,9 +573,14 @@ func dataToIAST(data string) string {
 				continue
 			}
 
+			if curr == "ḥ" || curr == "ṃ" || curr == "ã" {
+				arr = append(arr, curr)
+				i++
+				continue
+			}
+
 			arr = append(arr, curr+"a")
 			i++
-			continue
 		}
 
 		ans = append(ans, strings.Join(arr, ""))
