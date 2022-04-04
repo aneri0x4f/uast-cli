@@ -1,9 +1,6 @@
 package utils
 
-import (
-	"regexp"
-	"strings"
-)
+import "strings"
 
 type charMap = map[string]string
 
@@ -384,7 +381,8 @@ func dataToDevanagari(data string) string {
 			}
 
 			var vowel string
-			if curr == "a" && (str[i+1] == "i" || str[i+1] == "u") {
+			if curr == "a" && (i+1 < len(str) &&
+				(str[i+1] == "i" || str[i+1] == "u")) {
 				vowel = strings.Join(str[i:i+2], "")
 				i += 2
 			} else {
@@ -476,7 +474,8 @@ func devanagariToUAST(data string) string {
 func dataToIAST(data string) string {
 	data = strings.ReplaceAll(data, "\n", "")
 	data = strings.ReplaceAll(data, "/'/", "/_/")
-	data = regexp.MustCompile("[`']").ReplaceAllString(data, "")
+	data = strings.ReplaceAll(data, "`", "")
+	data = strings.ReplaceAll(data, "'", "")
 	data = strings.ReplaceAll(data, "/_/", "/'/")
 
 	var ans []string
@@ -575,6 +574,7 @@ func dataToIAST(data string) string {
 			}
 
 			arr = append(arr, curr+"a")
+			i++
 			continue
 		}
 
@@ -698,7 +698,8 @@ func iastToUAST(data string) string {
 			hasDash = true
 		}
 
-		curr = regexp.MustCompile("[\\-]").ReplaceAllString(curr, "")
+		curr = strings.ReplaceAll(curr, "\\", "")
+		curr = strings.ReplaceAll(curr, "-", "")
 
 		for _, j := range []string{
 			".",
@@ -725,7 +726,7 @@ func iastToUAST(data string) string {
 
 		var val string
 		if v, ok := iastDataDict[curr]; ok {
-			val = v
+			val = "/" + v + "/"
 		} else {
 			val = curr
 		}
@@ -746,9 +747,11 @@ func iastToUAST(data string) string {
 		ans = append(ans, val)
 	}
 
-	if _, ok := characterDict.consonants[ans[len(ans)-1]]; ok &&
-		str[len(str)-1] != "a" {
-		ans = append(ans, "-")
+	if len(ans) > 0 && len(str) > 0 {
+		if _, ok := characterDict.consonants[ans[len(ans)-1]]; ok &&
+			str[len(str)-1] != "a" {
+			ans = append(ans, "-")
+		}
 	}
 
 	return strings.Join(ans, "")

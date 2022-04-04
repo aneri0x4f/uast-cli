@@ -7,6 +7,7 @@ import (
 	"flag"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"log"
 	"os"
 	"strings"
@@ -32,6 +33,9 @@ func main() {
 	from := flag.String("from", UAST, fmt.Sprintf("from schema (%v)", schemes))
 	to := flag.String("to", DEVANAGARI, fmt.Sprintf("to schema (%v)", schemes))
 
+	input := flag.String("i", "", "Input file")
+	output := flag.String("o", "", "Output file")
+
 	flag.Parse()
 
 	buf := bufio.NewReadWriter(
@@ -51,6 +55,40 @@ func main() {
 		buf.WriteString("`to`: " + *to + "\n")
 	default:
 		log.Printf("bad `to` value: %v: expected %v", *to, schemes)
+	}
+
+	if *input != "" && *output != "" {
+		f, err := ioutil.ReadFile(*input)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		if k, ok := utils.Convertors[*from][*to]; ok {
+			var ans []string
+
+			for _, i := range strings.Split(string(f), "\n") {
+				var arr []string
+
+				for _, j := range strings.Split(i, " ") {
+					for _, f := range k {
+						j = f(j)
+					}
+					arr = append(arr, j)
+				}
+
+				ans = append(ans, strings.Join(arr, " "))
+			}
+
+			if ioutil.WriteFile(*output, []byte(strings.Join(ans, "\n")), 0666) != nil {
+				log.Fatal(err)
+			}
+		}
+
+		return
+	}
+
+	if (*input != "" && *output == "") || (*input == "" && *output != "") {
+		log.Fatalf("Either of `-i` or `-o` was missing")
 	}
 
 	for {
