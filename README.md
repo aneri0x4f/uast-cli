@@ -1,5 +1,8 @@
 # UAST: Unicode Aware Sanskrit Transliteration
 
+A tool for transliterating and typing Sanskrit in the easiest
+computer, language, and human-friendly way
+
 To install this program, you will need to install [Go](https://go.dev/)
 
 After that, simply run:
