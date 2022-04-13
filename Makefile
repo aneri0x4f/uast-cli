@@ -4,11 +4,11 @@ CFLAGS = -ldflags "-w -s"
 BIN = bin/
 
 all:
-	go build -o $(BIN) $(CFLAGS) .
+	go build -v -o $(BIN) $(CFLAGS) .
 
 install:
-	go install $(CFLAGS)
+	go install -v $(CFLAGS)
 
 clean:
 	go clean -i -n
-	rm -rf $(BIN)
+	rm -rfv $(BIN)
