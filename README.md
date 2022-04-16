@@ -23,6 +23,25 @@ To build in current directory,
 make
 ```
 
+To run in [Docker](https://www.docker.com/) container,
+
+```bash
+make docker
+docker run -it --rm uast
+```
+
+```
+Usage of uast:
+  -from string
+    	from schema ([uast raw devanagari iast]) (default "uast")
+  -i string
+    	Input file
+  -o string
+    	Output file
+  -to string
+    	to schema ([uast raw devanagari iast]) (default "devanagari")
+```
+
 If you use this repository, please cite the following paper:
 
 ```bibtex
