@@ -1,5 +1,5 @@
 .DEFAULT_GOAL := all
-.PHONY := all docker format install clean
+.PHONY: all docker format install clean
 
 CFLAGS = -ldflags "-w -s"
 BIN = bin/
