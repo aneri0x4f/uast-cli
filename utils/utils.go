@@ -496,6 +496,11 @@ func dataToIAST(data string) string {
 			continue
 		}
 
+		if split == "ḥ" || split == "ṃ" || split == "ã" {
+			ans = append(ans, split)
+			continue
+		}
+
 		var str []string
 		for _, v := range split {
 			str = append(str, string(v))
