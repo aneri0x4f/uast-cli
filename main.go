@@ -91,8 +91,14 @@ func main() {
 		log.Fatalf("Either of `-i` or `-o` was missing")
 	}
 
+	var idx int
 	for {
-		buf.WriteString(">>> ")
+		buf.WriteString(
+			fmt.Sprintf(
+				"\n\033[32mIn [\033[00m\033[01;32m%v\033[00m\033[32m]:\033[00m ",
+				idx,
+			),
+		)
 		buf.Flush()
 
 		if s, err := buf.ReadString('\n'); err != nil {
@@ -178,8 +184,14 @@ func main() {
 				arr = append(arr, v)
 			}
 
-			buf.WriteString(strings.Join(arr, " ") + "\n")
+			buf.WriteString(
+				fmt.Sprintf(
+					"\033[31mOut[\033[00m\033[01;31m%v\033[00m\033[31m]:\033[00m %v\n",
+					idx, strings.Join(arr, " "),
+				),
+			)
 			buf.Flush()
+			idx++
 		}
 	}
 }
