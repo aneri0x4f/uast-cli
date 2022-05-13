@@ -6,6 +6,6 @@ COPY . .
 RUN make
 
 # final stage
-FROM gcr.io/distroless/base:latest
+FROM scratch
 COPY --from=builder /usr/src/bin/uast /
 CMD ["/uast"]
