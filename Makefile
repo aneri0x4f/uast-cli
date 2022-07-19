@@ -2,7 +2,7 @@
 .PHONY: all docker format install clean
 
 CFLAGS = -ldflags "-w -s"
-BIN = bin/
+BIN = bin/uast
 
 all:
 	go build -v -o $(BIN) $(CFLAGS) .

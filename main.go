@@ -11,7 +11,8 @@ import (
 	"log"
 	"os"
 	"strings"
-	"uast/utils"
+
+	"github.com/aneri0x4f/uast-cli/utils"
 )
 
 //go:embed LICENSE
