@@ -21,6 +21,18 @@ var LICENSE string
 //go:embed CITATIONS.md
 var CITE string
 
+func writeBuf(buf *bufio.ReadWriter, s string) {
+	if _, err := buf.WriteString(s); err != nil {
+		log.Fatal(err)
+	}
+}
+
+func flushBuf(buf *bufio.ReadWriter) {
+	if err := buf.Flush(); err != nil {
+		log.Fatal(err)
+	}
+}
+
 func main() {
 	const (
 		UAST       string = "uast"
@@ -46,14 +58,14 @@ func main() {
 
 	switch *from {
 	case RAW, DEVANAGARI, IAST, UAST:
-		buf.WriteString("`from`: " + *from + "\n")
+		writeBuf(buf, "`from`: "+*from+"\n")
 	default:
 		log.Printf("bad `from` value: %v: expected %v", *from, schemes)
 	}
 
 	switch *to {
 	case RAW, DEVANAGARI, IAST, UAST:
-		buf.WriteString("`to`: " + *to + "\n")
+		writeBuf(buf, "`to`: "+*to+"\n")
 	default:
 		log.Printf("bad `to` value: %v: expected %v", *to, schemes)
 	}
@@ -94,21 +106,23 @@ func main() {
 
 	var idx int
 	for {
-		buf.WriteString(
+		writeBuf(
+			buf,
 			fmt.Sprintf(
 				"\n\033[32mIn [\033[00m\033[01;32m%v\033[00m\033[32m]:\033[00m ",
 				idx,
 			),
 		)
-		buf.Flush()
+
+		flushBuf(buf)
 
 		if s, err := buf.ReadString('\n'); err != nil {
 			if !errors.Is(err, io.EOF) {
 				log.Fatal(err)
 			}
 
-			buf.WriteString("\n")
-			buf.Flush()
+			writeBuf(buf, "\n")
+			flushBuf(buf)
 			return
 		} else {
 			var arr []string
@@ -125,9 +139,9 @@ func main() {
 							log.Printf("bad `from` value: %v: expected %v", *from, schemes)
 						}
 
-						buf.WriteString("`from`: " + *from + "\n")
-						buf.WriteString("`to`: " + *to + "\n")
-						buf.Flush()
+						writeBuf(buf, "`from`: "+*from+"\n")
+						writeBuf(buf, "`to`: "+*to+"\n")
+						flushBuf(buf)
 					}
 				case "to":
 					{
@@ -138,25 +152,25 @@ func main() {
 							log.Printf("bad `from` value: %v: expected %v", *from, schemes)
 						}
 
-						buf.WriteString("`from`: " + *from + "\n")
-						buf.WriteString("`to`: " + *to + "\n")
-						buf.Flush()
+						writeBuf(buf, "`from`: "+*from+"\n")
+						writeBuf(buf, "`to`: "+*to+"\n")
+						flushBuf(buf)
 					}
 				case "licence", "license":
 					{
-						buf.WriteString(LICENSE)
-						buf.Flush()
+						writeBuf(buf, LICENSE)
+						flushBuf(buf)
 					}
 				case "config":
 					{
-						buf.WriteString("`from`: " + *from + "\n")
-						buf.WriteString("`to`: " + *to + "\n")
-						buf.Flush()
+						writeBuf(buf, "`from`: "+*from+"\n")
+						writeBuf(buf, "`to`: "+*to+"\n")
+						flushBuf(buf)
 					}
 				case "citation":
 					{
-						buf.WriteString(CITE)
-						buf.Flush()
+						writeBuf(buf, CITE)
+						flushBuf(buf)
 					}
 				case "help":
 					{
@@ -185,13 +199,14 @@ func main() {
 				arr = append(arr, v)
 			}
 
-			buf.WriteString(
+			writeBuf(buf,
 				fmt.Sprintf(
 					"\033[31mOut[\033[00m\033[01;31m%v\033[00m\033[31m]:\033[00m %v\n",
 					idx, strings.Join(arr, " "),
 				),
 			)
-			buf.Flush()
+
+			flushBuf(buf)
 			idx++
 		}
 	}

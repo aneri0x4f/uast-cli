@@ -7,6 +7,10 @@ BIN = bin/uast
 all:
 	go build -v -o $(BIN) $(CFLAGS) .
 
+podman:
+	podman build --pull --compress -t uast .
+	podman system prune -f
+
 docker:
 	docker buildx build --pull --compress -t uast .
 	docker system prune -f
