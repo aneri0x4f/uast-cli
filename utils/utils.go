@@ -277,7 +277,7 @@ func in(a []string, x string) bool {
 	return false
 }
 
-func handleUnicode(uast string) string {
+func HandleUnicode(uast string) string {
 	uast = strings.Trim(strings.ToLower(uast), "\\")
 
 	var str []string
@@ -322,7 +322,7 @@ func handleUnicode(uast string) string {
 	return strings.Join(arr, "")
 }
 
-func dataToDevanagari(data string) string {
+func DataToDevanagari(data string) string {
 	var ans []string
 
 	for _, split := range strings.Split(data, "\\") {
@@ -403,7 +403,7 @@ func dataToDevanagari(data string) string {
 	return strings.Join(ans, "")
 }
 
-func devanagariToUAST(data string) string {
+func DevanagariToUAST(data string) string {
 	var str []string
 	for _, v := range data {
 		str = append(str, string(v))
@@ -473,7 +473,7 @@ func devanagariToUAST(data string) string {
 	return strings.Join(arr, "")
 }
 
-func dataToIAST(data string) string {
+func DataToIAST(data string) string {
 	data = strings.ReplaceAll(data, "\n", "")
 	data = strings.ReplaceAll(data, "/'/", "/_/")
 	data = strings.ReplaceAll(data, "`", "")
@@ -596,7 +596,7 @@ func dataToIAST(data string) string {
 	return strings.Join(ans, "")
 }
 
-func iastToUAST(data string) string {
+func IASTToUAST(data string) string {
 	var str []string
 	for _, v := range data {
 		str = append(str, string(v))
@@ -772,37 +772,37 @@ func iastToUAST(data string) string {
 var Convertors = map[string](map[string]([]func(string) string)){
 	"raw": {
 		"iast": []func(string) string{
-			handleUnicode,
+			HandleUnicode,
 		},
 	},
 	"uast": {
 		"devanagari": []func(string) string{
-			handleUnicode,
-			dataToDevanagari,
+			HandleUnicode,
+			DataToDevanagari,
 		},
 		"iast": []func(string) string{
-			handleUnicode,
-			dataToIAST,
+			HandleUnicode,
+			DataToIAST,
 		},
 	},
 	"devanagari": {
 		"uast": []func(string) string{
-			devanagariToUAST,
+			DevanagariToUAST,
 		},
 		"iast": []func(string) string{
-			devanagariToUAST,
-			handleUnicode,
-			dataToIAST,
+			DevanagariToUAST,
+			HandleUnicode,
+			DataToIAST,
 		},
 	},
 	"iast": {
 		"uast": []func(string) string{
-			iastToUAST,
+			IASTToUAST,
 		},
 		"devanagari": []func(string) string{
-			iastToUAST,
-			handleUnicode,
-			dataToDevanagari,
+			IASTToUAST,
+			HandleUnicode,
+			DataToDevanagari,
 		},
 	},
 }
