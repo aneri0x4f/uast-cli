@@ -18,9 +18,9 @@ docker:
 format:
 	gofmt -s -w **/*.go
 
-install:
-	go install -v $(CFLAGS)
+install: all
+	cp bin/uast $(shell go env GOPATH)/bin
 
 clean:
 	go clean -i -n
-	rm -rfv $(BIN)
+	rm -rfv $(BIN) $(shell go env GOPATH)/bin/uast
