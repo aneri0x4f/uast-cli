@@ -1,8 +1,6 @@
 package utils
 
-import (
-	"strings"
-)
+import "strings"
 
 type charMap = map[string]string
 
@@ -37,6 +35,7 @@ var unicodeMap = charMap{
 	"ru": "ṝ",
 	"l":  "ḷ",
 	"lu": "ḹ",
+	"ll": "ḻ",
 	"t":  "ṭ",
 	"d":  "ḍ",
 	"m":  "ṃ",
@@ -148,6 +147,7 @@ var characterDict = struct {
 		"ṣ":  "ष",
 		"s":  "स",
 		"h":  "ह",
+		"ḻ":  "ळ",
 	},
 }
 
@@ -185,6 +185,7 @@ var devanagariDataDict = charMap{
 	"ष": "/sl/",
 	"स": "s",
 	"ह": "h",
+	"ळ": "/ll/",
 	"अ": "a",
 	"आ": "/a/",
 	"इ": "i",
@@ -251,6 +252,7 @@ var iastDataDict = charMap{
 	"ṝ": "ru",
 	"ḷ": "l",
 	"ḹ": "lu",
+	"ḻ": "ll",
 	"ṭ": "t",
 	"ḍ": "d",
 	"ṃ": "m",
@@ -421,10 +423,12 @@ func DevanagariToUAST(data string) string {
 
 		if curr == "॑" {
 			arr = append(arr, "\\'")
+			continue
 		}
 
 		if curr == "॒" {
 			arr = append(arr, "\\`")
+			continue
 		}
 
 		var val string
@@ -476,8 +480,6 @@ func DevanagariToUAST(data string) string {
 func DataToIAST(data string) string {
 	data = strings.ReplaceAll(data, "\n", "")
 	data = strings.ReplaceAll(data, "/'/", "/_/")
-	data = strings.ReplaceAll(data, "`", "")
-	data = strings.ReplaceAll(data, "'", "")
 	data = strings.ReplaceAll(data, "/_/", "/'/")
 
 	var ans []string
@@ -511,6 +513,18 @@ func DataToIAST(data string) string {
 		var arr []string
 		for i := 0; i < len(str); {
 			curr := str[i]
+
+			if curr == "'" {
+				// arr.push('॑');
+				i++
+				continue
+			}
+
+			if curr == "`" {
+				// arr.push('॒');
+				i++
+				continue
+			}
 
 			var next string
 			if i+1 < len(str) {
