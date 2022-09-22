@@ -39,12 +39,24 @@ func main() {
 		IAST       string = "iast"
 		RAW        string = "raw"
 		DEVANAGARI string = "devanagari"
+		SLP1       string = "slp"
 	)
 
-	schemes := []string{UAST, RAW, DEVANAGARI, IAST}
+	from_schemes := []string{UAST, RAW, DEVANAGARI, IAST, SLP1}
+	to_schemes := []string{UAST, DEVANAGARI, IAST}
 
-	from := flag.String("from", UAST, fmt.Sprintf("from schema (%v)", schemes))
-	to := flag.String("to", DEVANAGARI, fmt.Sprintf("to schema (%v)", schemes))
+	from := flag.String("from", UAST,
+		fmt.Sprintf(
+			"from schema (%v)",
+			from_schemes,
+		),
+	)
+	to := flag.String("to", DEVANAGARI,
+		fmt.Sprintf(
+			"to schema (%v)",
+			to_schemes,
+		),
+	)
 
 	input := flag.String("i", "", "Input file")
 	output := flag.String("o", "", "Output file")
@@ -60,14 +72,14 @@ func main() {
 	case RAW, DEVANAGARI, IAST, UAST:
 		writeBuf(buf, "`from`: "+*from+"\n")
 	default:
-		log.Printf("bad `from` value: %v: expected %v", *from, schemes)
+		log.Printf("bad `from` value: %v: expected %v", *from, from_schemes)
 	}
 
 	switch *to {
-	case RAW, DEVANAGARI, IAST, UAST:
+	case DEVANAGARI, IAST, UAST:
 		writeBuf(buf, "`to`: "+*to+"\n")
 	default:
-		log.Printf("bad `to` value: %v: expected %v", *to, schemes)
+		log.Printf("bad `to` value: %v: expected %v", *to, to_schemes)
 	}
 
 	if *input != "" && *output != "" {
@@ -133,10 +145,10 @@ func main() {
 				case "from":
 					{
 						switch l[1] {
-						case RAW, DEVANAGARI, IAST, UAST:
+						case RAW, DEVANAGARI, IAST, UAST, SLP1:
 							*from = l[1]
 						default:
-							log.Printf("bad `from` value: %v: expected %v", *from, schemes)
+							log.Printf("bad `from` value: %v: expected %v", *from, from_schemes)
 						}
 
 						writeBuf(buf, "`from`: "+*from+"\n")
@@ -149,7 +161,7 @@ func main() {
 						case RAW, DEVANAGARI, IAST, UAST:
 							*to = l[1]
 						default:
-							log.Printf("bad `from` value: %v: expected %v", *from, schemes)
+							log.Printf("bad `from` value: %v: expected %v", *from, to_schemes)
 						}
 
 						writeBuf(buf, "`from`: "+*from+"\n")

@@ -269,6 +269,62 @@ var iastDataDict = charMap{
 	"ã": "au",
 }
 
+var slpDataDict = charMap{
+	"a": "a",
+	"A": "ā",
+	"i": "i",
+	"I": "ī",
+	"u": "u",
+	"U": "ū",
+	"e": "e",
+	"E": "ai",
+	"o": "o",
+	"O": "au",
+	"f": "ṛ",
+	"F": "ṝ",
+	"x": "ḷ",
+	"X": "ḹ",
+	"L": "ḻ",
+	"|": "ḻh",
+	"k": "k",
+	"K": "kh",
+	"g": "g",
+	"G": "gh",
+	"N": "ṅ",
+	"c": "c",
+	"C": "ch",
+	"j": "j",
+	"J": "jh",
+	"Y": "ñ",
+	"w": "ṭ",
+	"W": "ṭh",
+	"q": "ḍ",
+	"Q": "ḍ",
+	"R": "ṇ",
+	"t": "t",
+	"T": "th",
+	"d": "d",
+	"D": "dh",
+	"n": "n",
+	"p": "p",
+	"P": "ph",
+	"b": "b",
+	"B": "bh",
+	"m": "m",
+	"M": "ṃ",
+	"H": "ḥ",
+	"y": "y",
+	"r": "r",
+	"l": "l",
+	"v": "v",
+	"S": "ś",
+	"z": "ṣ",
+	"s": "s",
+	"h": "h",
+	"'": "'",
+	"~": "ã",
+}
+
 func in(a []string, x string) bool {
 	for _, v := range a {
 		if v == x {
@@ -783,6 +839,17 @@ func IASTToUAST(data string) string {
 	return strings.Join(ans, "")
 }
 
+func SLPToIAST(data string) string {
+	var str []string
+	for _, v := range data {
+		if c, ok := slpDataDict[string(v)]; ok {
+			str = append(str, c)
+		}
+	}
+
+	return strings.Join(str, "")
+}
+
 var Convertors = map[string](map[string]([]func(string) string)){
 	"raw": {
 		"iast": []func(string) string{
@@ -807,6 +874,21 @@ var Convertors = map[string](map[string]([]func(string) string)){
 			DevanagariToUAST,
 			HandleUnicode,
 			DataToIAST,
+		},
+	},
+	"slp": {
+		"iast": []func(string) string{
+			SLPToIAST,
+		},
+		"uast": []func(string) string{
+			SLPToIAST,
+			IASTToUAST,
+		},
+		"devanagari": []func(string) string{
+			SLPToIAST,
+			IASTToUAST,
+			HandleUnicode,
+			DataToDevanagari,
 		},
 	},
 	"iast": {
