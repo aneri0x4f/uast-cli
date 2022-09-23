@@ -836,7 +836,18 @@ func IASTToUAST(data string) string {
 		}
 	}
 
-	return strings.Join(ans, "")
+	var final []string
+
+	for _, v := range strings.Join(ans, "") {
+		l := string(v)
+		if k, ok := iastDataDict[l]; ok {
+			final = append(final, "/"+k+"/")
+		} else {
+			final = append(final, l)
+		}
+	}
+
+	return strings.Join(final, "")
 }
 
 func SLPToIAST(data string) string {
