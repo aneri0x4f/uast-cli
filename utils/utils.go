@@ -4,6 +4,21 @@ import "strings"
 
 type charMap = map[string]string
 
+type langMap = struct {
+	numbers    charMap
+	vowels     charMap
+	vowelSigns charMap
+	consonants charMap
+	misc       charMap
+}
+
+type lang string
+
+const (
+	gu lang = "gu"
+	sa lang = "sa"
+)
+
 var unAspiratedConsonants = []string{
 	"b",
 	"c",
@@ -52,13 +67,94 @@ var unicodeMap = charMap{
 	"au": "ã",
 }
 
-var characterDict = struct {
-	numbers    charMap
-	vowels     charMap
-	vowelSigns charMap
-	consonants charMap
-	misc       charMap
-}{
+var gujaratiCharDict = langMap{
+	misc: charMap{
+		"।": ".",
+		"॥": "..",
+		"ऽ": "'",
+		"ॐ": "om",
+	},
+	numbers: charMap{
+		"૦": "0",
+		"૧": "1",
+		"૨": "2",
+		"૩": "3",
+		"૪": "4",
+		"૫": "5",
+		"૬": "6",
+		"૭": "7",
+		"૮": "8",
+		"૯": "9",
+	},
+	vowels: charMap{
+		"a":  "અ",
+		"ā":  "આ",
+		"i":  "ઇ",
+		"ī":  "ઈ",
+		"u":  "ઉ",
+		"ū":  "ઊ",
+		"ṛ":  "ઋ",
+		"e":  "એ",
+		"ai": "ઐ",
+		"o":  "ઓ",
+		"au": "ઔ",
+	},
+	vowelSigns: charMap{
+		"a":  "",
+		"ā":  "ા",
+		"i":  "િ",
+		"ī":  "ી",
+		"u":  "ુ",
+		"ū":  "ૂ",
+		"ṛ":  "ૃ",
+		"e":  "ે",
+		"ai": "ૈ",
+		"o":  "ો",
+		"au": "ૌ",
+		"ṃ":  "ં",
+		"ḥ":  "ઃ",
+		"ã":  "ँ",
+		"-":  "्",
+	},
+	consonants: charMap{
+		"k":  "ક",
+		"kh": "ખ",
+		"g":  "ગ",
+		"gh": "ઘ",
+		"ṅ":  "ઙ",
+		"c":  "ચ",
+		"ch": "છ",
+		"j":  "જ",
+		"jh": "ઝ",
+		"ñ":  "ઞ",
+		"ṭ":  "ટ",
+		"ṭh": "ઠ",
+		"ḍ":  "ડ",
+		"ḍh": "ઢ",
+		"ṇ":  "ણ",
+		"t":  "ત",
+		"th": "થ",
+		"d":  "દ",
+		"dh": "ધ",
+		"n":  "ન",
+		"p":  "પ",
+		"ph": "ફ",
+		"b":  "બ",
+		"bh": "ભ",
+		"m":  "મ",
+		"y":  "ય",
+		"r":  "ર",
+		"l":  "લ",
+		"v":  "વ",
+		"ś":  "શ",
+		"ṣ":  "ષ",
+		"s":  "સ",
+		"h":  "હ",
+		"ḻ":  "ળ",
+	},
+}
+
+var devanagariCharDict = langMap{
 	misc: charMap{
 		"।": ".",
 		"॥": "..",
@@ -335,6 +431,7 @@ func in(a []string, x string) bool {
 	return false
 }
 
+// Function to map special characters to Unicode
 func HandleUnicode(uast string) string {
 	uast = strings.Trim(strings.ToLower(uast), "\\")
 
@@ -380,87 +477,97 @@ func HandleUnicode(uast string) string {
 	return strings.Join(arr, "")
 }
 
-func DataToDevanagari(data string) string {
-	var ans []string
+// Function to create the function of parser
+func CreateDataFunction(l lang) func(string) string {
+	obj := devanagariCharDict
 
-	for _, split := range strings.Split(data, "\\") {
-		if _, ok := characterDict.misc[split]; ok {
-			ans = append(ans, split)
-			continue
-		}
+	if l == gu {
+		obj = gujaratiCharDict
+	}
 
-		if _, ok := characterDict.numbers[split]; ok {
-			ans = append(ans, split)
-			continue
-		}
+	return func(data string) string {
+		var ans []string
 
-		if v, ok := characterDict.vowels[split]; ok {
-			ans = append(ans, v)
-			continue
-		}
-
-		var str []string
-		for _, v := range split {
-			str = append(str, string(v))
-		}
-
-		var arr []string
-		for i := 0; i < len(str); {
-			curr := str[i]
-			if curr == "'" {
-				arr = append(arr, "॑")
-				i++
+		for _, split := range strings.Split(data, "\\") {
+			if _, ok := obj.misc[split]; ok {
+				ans = append(ans, split)
 				continue
 			}
 
-			if curr == "`" {
-				arr = append(arr, "॒")
-				i++
+			if _, ok := obj.numbers[split]; ok {
+				ans = append(ans, split)
 				continue
 			}
 
-			if in(unAspiratedConsonants, curr) {
-				var consonant string
-				if i+1 < len(str) && str[i+1] == "h" {
-					consonant = strings.Join(str[i:i+2], "")
-					i += 2
-				} else {
-					consonant = curr
+			if v, ok := obj.vowels[split]; ok {
+				ans = append(ans, v)
+				continue
+			}
+
+			var str []string
+			for _, v := range split {
+				str = append(str, string(v))
+			}
+
+			var arr []string
+			for i := 0; i < len(str); {
+				curr := str[i]
+				if curr == "'" {
+					arr = append(arr, "॑")
 					i++
+					continue
 				}
 
-				if v, ok := characterDict.consonants[consonant]; ok {
+				if curr == "`" {
+					arr = append(arr, "॒")
+					i++
+					continue
+				}
+
+				if in(unAspiratedConsonants, curr) {
+					var consonant string
+					if i+1 < len(str) && str[i+1] == "h" {
+						consonant = strings.Join(str[i:i+2], "")
+						i += 2
+					} else {
+						consonant = curr
+						i++
+					}
+
+					if v, ok := obj.consonants[consonant]; ok {
+						arr = append(arr, v)
+					}
+
+					continue
+				}
+
+				if v, ok := obj.consonants[curr]; ok {
 					arr = append(arr, v)
 				}
 
-				continue
+				var vowel string
+				if curr == "a" && (i+1 < len(str) &&
+					(str[i+1] == "i" || str[i+1] == "u")) {
+					vowel = strings.Join(str[i:i+2], "")
+					i += 2
+				} else {
+					vowel = curr
+					i++
+				}
+
+				if v, ok := obj.vowelSigns[vowel]; ok {
+					arr = append(arr, v)
+				}
 			}
 
-			if v, ok := characterDict.consonants[curr]; ok {
-				arr = append(arr, v)
-			}
-
-			var vowel string
-			if curr == "a" && (i+1 < len(str) &&
-				(str[i+1] == "i" || str[i+1] == "u")) {
-				vowel = strings.Join(str[i:i+2], "")
-				i += 2
-			} else {
-				vowel = curr
-				i++
-			}
-
-			if v, ok := characterDict.vowelSigns[vowel]; ok {
-				arr = append(arr, v)
-			}
+			ans = append(ans, strings.Join(arr, ""))
 		}
 
-		ans = append(ans, strings.Join(arr, ""))
+		return strings.Join(ans, "")
 	}
-
-	return strings.Join(ans, "")
 }
 
+// Convert देवनागरी to UAST
 func DevanagariToUAST(data string) string {
 	var str []string
 	for _, v := range data {
@@ -502,7 +609,7 @@ func DevanagariToUAST(data string) string {
 		}
 
 		var checkVowel bool
-		for _, v := range characterDict.vowels {
+		for _, v := range devanagariCharDict.vowels {
 			if v == curr {
 				checkVowel = true
 				break
@@ -510,7 +617,7 @@ func DevanagariToUAST(data string) string {
 		}
 
 		var checkConsonant bool
-		for _, v := range characterDict.consonants {
+		for _, v := range devanagariCharDict.consonants {
 			if v == next {
 				checkConsonant = true
 				break
@@ -533,6 +640,7 @@ func DevanagariToUAST(data string) string {
 	return strings.Join(arr, "")
 }
 
+// Convert parsed UAST string to IAST
 func DataToIAST(data string) string {
 	data = strings.ReplaceAll(data, "\n", "")
 	data = strings.ReplaceAll(data, "/'/", "/_/")
@@ -546,12 +654,12 @@ func DataToIAST(data string) string {
 			continue
 		}
 
-		if v, ok := characterDict.numbers[split]; ok {
+		if v, ok := devanagariCharDict.numbers[split]; ok {
 			ans = append(ans, v)
 			continue
 		}
 
-		if v, ok := characterDict.misc[split]; ok {
+		if v, ok := devanagariCharDict.misc[split]; ok {
 			ans = append(ans, v)
 			continue
 		}
@@ -588,7 +696,7 @@ func DataToIAST(data string) string {
 			}
 
 			if next == "ḥ" || next == "ṃ" || next == "ã" {
-				if _, ok := characterDict.consonants[curr]; ok {
+				if _, ok := devanagariCharDict.consonants[curr]; ok {
 					arr = append(arr, curr+"a"+next)
 				} else {
 					arr = append(arr, curr+next)
@@ -598,7 +706,7 @@ func DataToIAST(data string) string {
 				continue
 			}
 
-			if _, ok := characterDict.vowels[curr]; ok {
+			if _, ok := devanagariCharDict.vowels[curr]; ok {
 				arr = append(arr, curr)
 				i++
 				continue
@@ -616,7 +724,7 @@ func DataToIAST(data string) string {
 					last = str[i+2]
 				}
 
-				if _, ok := characterDict.vowelSigns[last]; !ok {
+				if _, ok := devanagariCharDict.vowelSigns[last]; !ok {
 					arr = append(arr, curr+next+"a")
 					i += 2
 					continue
@@ -644,7 +752,7 @@ func DataToIAST(data string) string {
 				continue
 			}
 
-			if _, ok := characterDict.vowelSigns[next]; ok {
+			if _, ok := devanagariCharDict.vowelSigns[next]; ok {
 				arr = append(arr, curr)
 				i++
 				continue
@@ -666,6 +774,7 @@ func DataToIAST(data string) string {
 	return strings.Join(ans, "")
 }
 
+// Convert IAST to UAST
 func IASTToUAST(data string) string {
 	var str []string
 	for _, v := range data {
@@ -682,7 +791,7 @@ func IASTToUAST(data string) string {
 			next = str[i+1]
 		}
 
-		if _, ok := characterDict.consonants[curr]; ok {
+		if _, ok := devanagariCharDict.consonants[curr]; ok {
 			if in(unAspiratedConsonants, curr) {
 				if next == "a" && (i+2 < len(str) && str[i+2] == "h") {
 					arr = append(arr, curr+"\\")
@@ -696,7 +805,7 @@ func IASTToUAST(data string) string {
 						last = str[i+2]
 					}
 
-					if _, ok := characterDict.consonants[last]; ok {
+					if _, ok := devanagariCharDict.consonants[last]; ok {
 						arr = append(arr, curr+next+"-")
 						i += 2
 						continue
@@ -739,7 +848,7 @@ func IASTToUAST(data string) string {
 				continue
 			}
 
-			if _, ok := characterDict.consonants[next]; ok ||
+			if _, ok := devanagariCharDict.consonants[next]; ok ||
 				(next == "." || next == ".." || next == "'") ||
 				i == len(str)-1 {
 				arr = append(arr, curr+"-")
@@ -758,8 +867,8 @@ func IASTToUAST(data string) string {
 			continue
 		}
 
-		if _, ok := characterDict.vowels[curr]; ok {
-			if _, ok := characterDict.consonants[next]; ok {
+		if _, ok := devanagariCharDict.vowels[curr]; ok {
+			if _, ok := devanagariCharDict.consonants[next]; ok {
 				arr = append(arr, curr+"\\")
 				i++
 				continue
@@ -822,7 +931,7 @@ func IASTToUAST(data string) string {
 			val += "-"
 		}
 
-		if _, ok := characterDict.vowels[curr]; ok {
+		if _, ok := devanagariCharDict.vowels[curr]; ok {
 			val += "\\"
 		}
 
@@ -830,7 +939,7 @@ func IASTToUAST(data string) string {
 	}
 
 	if len(ans) > 0 && len(str) > 0 {
-		if _, ok := characterDict.consonants[ans[len(ans)-1]]; ok &&
+		if _, ok := devanagariCharDict.consonants[ans[len(ans)-1]]; ok &&
 			str[len(str)-1] != "a" {
 			ans = append(ans, "-")
 		}
@@ -850,6 +959,7 @@ func IASTToUAST(data string) string {
 	return strings.Join(final, "")
 }
 
+// Convert SLP1 to IAST
 func SLPToIAST(data string) string {
 	var str []string
 	for _, v := range data {
@@ -870,11 +980,15 @@ var Convertors = map[string](map[string]([]func(string) string)){
 	"uast": {
 		"devanagari": []func(string) string{
 			HandleUnicode,
-			DataToDevanagari,
+			CreateDataFunction(sa),
 		},
 		"iast": []func(string) string{
 			HandleUnicode,
 			DataToIAST,
+		},
+		"guj": []func(string) string{
+			HandleUnicode,
+			CreateDataFunction(gu),
 		},
 	},
 	"devanagari": {
@@ -899,7 +1013,7 @@ var Convertors = map[string](map[string]([]func(string) string)){
 			SLPToIAST,
 			IASTToUAST,
 			HandleUnicode,
-			DataToDevanagari,
+			CreateDataFunction(sa),
 		},
 	},
 	"iast": {
@@ -909,7 +1023,7 @@ var Convertors = map[string](map[string]([]func(string) string)){
 		"devanagari": []func(string) string{
 			IASTToUAST,
 			HandleUnicode,
-			DataToDevanagari,
+			CreateDataFunction(sa),
 		},
 	},
 }

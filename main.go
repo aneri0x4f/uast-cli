@@ -38,12 +38,13 @@ func main() {
 		UAST       string = "uast"
 		IAST       string = "iast"
 		RAW        string = "raw"
-		DEVANAGARI string = "devanagari"
 		SLP1       string = "slp"
+		GUJARATI   string = "guj"
+		DEVANAGARI string = "devanagari"
 	)
 
 	from_schemes := []string{UAST, RAW, DEVANAGARI, IAST, SLP1}
-	to_schemes := []string{UAST, DEVANAGARI, IAST}
+	to_schemes := []string{UAST, DEVANAGARI, IAST, GUJARATI}
 
 	from := flag.String("from", UAST,
 		fmt.Sprintf(
@@ -69,14 +70,14 @@ func main() {
 	)
 
 	switch *from {
-	case RAW, DEVANAGARI, IAST, UAST:
+	case RAW, DEVANAGARI, IAST, UAST, SLP1:
 		writeBuf(buf, "`from`: "+*from+"\n")
 	default:
 		log.Printf("bad `from` value: %v: expected %v", *from, from_schemes)
 	}
 
 	switch *to {
-	case DEVANAGARI, IAST, UAST:
+	case DEVANAGARI, IAST, UAST, GUJARATI:
 		writeBuf(buf, "`to`: "+*to+"\n")
 	default:
 		log.Printf("bad `to` value: %v: expected %v", *to, to_schemes)
@@ -158,10 +159,10 @@ func main() {
 				case "to":
 					{
 						switch l[1] {
-						case RAW, DEVANAGARI, IAST, UAST:
+						case DEVANAGARI, IAST, UAST, GUJARATI:
 							*to = l[1]
 						default:
-							log.Printf("bad `from` value: %v: expected %v", *from, to_schemes)
+							log.Printf("bad `to` value: %v: expected %v", *to, to_schemes)
 						}
 
 						writeBuf(buf, "`from`: "+*from+"\n")

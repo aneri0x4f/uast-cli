@@ -1,5 +1,5 @@
 .DEFAULT_GOAL := all
-.PHONY: all docker format install clean
+.PHONY: all docker format install clean test
 
 CFLAGS = -ldflags "-w -s"
 BIN = bin/uast
@@ -24,3 +24,6 @@ install: all
 clean:
 	go clean -i -n
 	rm -rfv $(BIN) $(shell go env GOPATH)/bin/uast
+
+test:
+	go test -v -cover ./...
