@@ -12,11 +12,11 @@ type langMap = struct {
 	misc       charMap
 }
 
-type lang string
+type langList string
 
 const (
-	gu lang = "gu"
-	sa lang = "sa"
+	gu langList = "gu"
+	sa langList = "sa"
 )
 
 var unAspiratedConsonants = []string{
@@ -448,21 +448,21 @@ func in(a []string, x string) bool {
 }
 
 // Function to map special characters to Unicode
-func CreateHandleUnicode(l lang) func(string) string {
-	d := charMap{}
+func CreateHandleUnicode(lang langList) func(string) string {
+	langDict := charMap{}
 
 	for k, v := range unicodeMap {
-		d[k] = v
+		langDict[k] = v
 	}
 
-	switch l {
+	switch lang {
 	case gu:
 		for k, v := range gujaratiNumMap {
-			d[k] = v
+			langDict[k] = v
 		}
 	default:
 		for k, v := range devanagariNumMap {
-			d[k] = v
+			langDict[k] = v
 		}
 	}
 
@@ -496,7 +496,7 @@ func CreateHandleUnicode(l lang) func(string) string {
 					char = append(char, curr)
 				}
 
-				if v, ok := d[strings.Join(char, "")]; ok {
+				if v, ok := langDict[strings.Join(char, "")]; ok {
 					arr = append(arr, v)
 				}
 
@@ -513,10 +513,10 @@ func CreateHandleUnicode(l lang) func(string) string {
 }
 
 // Function to create the function of parser
-func CreateDataFunction(l lang) func(string) string {
+func CreateDataFunction(lang langList) func(string) string {
 	obj := devanagariCharDict
 
-	if l == gu {
+	if lang == gu {
 		obj = gujaratiCharDict
 	}
 
