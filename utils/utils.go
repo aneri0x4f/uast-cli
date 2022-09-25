@@ -32,17 +32,33 @@ var unAspiratedConsonants = []string{
 	"ṭ",
 }
 
+var devanagariNumMap = charMap{
+	"0": "०",
+	"1": "१",
+	"2": "२",
+	"3": "३",
+	"4": "४",
+	"5": "५",
+	"6": "६",
+	"7": "७",
+	"8": "८",
+	"9": "९",
+}
+
+var gujaratiNumMap = charMap{
+	"0": "૦",
+	"1": "૧",
+	"2": "૨",
+	"3": "૩",
+	"4": "૪",
+	"5": "૫",
+	"6": "૬",
+	"7": "૭",
+	"8": "૮",
+	"9": "૯",
+}
+
 var unicodeMap = charMap{
-	"0":  "०",
-	"1":  "१",
-	"2":  "२",
-	"3":  "३",
-	"4":  "४",
-	"5":  "५",
-	"6":  "६",
-	"7":  "७",
-	"8":  "८",
-	"9":  "९",
 	"a":  "ā",
 	"i":  "ī",
 	"u":  "ū",
@@ -432,49 +448,68 @@ func in(a []string, x string) bool {
 }
 
 // Function to map special characters to Unicode
-func HandleUnicode(uast string) string {
-	uast = strings.Trim(strings.ToLower(uast), "\\")
+func CreateHandleUnicode(l lang) func(string) string {
+	d := charMap{}
 
-	var str []string
-	for _, v := range uast {
-		str = append(str, string(v))
+	for k, v := range unicodeMap {
+		d[k] = v
 	}
 
-	var arr []string
+	switch l {
+	case gu:
+		for k, v := range gujaratiNumMap {
+			d[k] = v
+		}
+	default:
+		for k, v := range devanagariNumMap {
+			d[k] = v
+		}
+	}
 
-	for i := 0; i < len(str); {
-		curr := str[i]
+	return func(uast string) string {
+		uast = strings.Trim(strings.ToLower(uast), "\\")
 
-		if curr == "/" {
-			var char []string
-
-			for j := i + 1; j < len(str); j++ {
-				curr := str[j]
-				if curr == "/" {
-					i = j
-					break
-				}
-
-				if j == len(str)-1 {
-					i = j
-				}
-
-				char = append(char, curr)
-			}
-
-			if v, ok := unicodeMap[strings.Join(char, "")]; ok {
-				arr = append(arr, v)
-			}
-
-			i++
-			continue
+		var str []string
+		for _, v := range uast {
+			str = append(str, string(v))
 		}
 
-		arr = append(arr, curr)
-		i++
-	}
+		var arr []string
 
-	return strings.Join(arr, "")
+		for i := 0; i < len(str); {
+			curr := str[i]
+
+			if curr == "/" {
+				var char []string
+
+				for j := i + 1; j < len(str); j++ {
+					curr := str[j]
+					if curr == "/" {
+						i = j
+						break
+					}
+
+					if j == len(str)-1 {
+						i = j
+					}
+
+					char = append(char, curr)
+				}
+
+				if v, ok := d[strings.Join(char, "")]; ok {
+					arr = append(arr, v)
+				}
+
+				i++
+				continue
+			}
+
+			arr = append(arr, curr)
+			i++
+		}
+
+		return strings.Join(arr, "")
+	}
 }
 
 // Function to create the function of parser
@@ -974,20 +1009,20 @@ func SLPToIAST(data string) string {
 var Convertors = map[string](map[string]([]func(string) string)){
 	"raw": {
 		"iast": []func(string) string{
-			HandleUnicode,
+			CreateHandleUnicode(sa),
 		},
 	},
 	"uast": {
 		"devanagari": []func(string) string{
-			HandleUnicode,
+			CreateHandleUnicode(sa),
 			CreateDataFunction(sa),
 		},
 		"iast": []func(string) string{
-			HandleUnicode,
+			CreateHandleUnicode(sa),
 			DataToIAST,
 		},
 		"guj": []func(string) string{
-			HandleUnicode,
+			CreateHandleUnicode(gu),
 			CreateDataFunction(gu),
 		},
 	},
@@ -997,7 +1032,7 @@ var Convertors = map[string](map[string]([]func(string) string)){
 		},
 		"iast": []func(string) string{
 			DevanagariToUAST,
-			HandleUnicode,
+			CreateHandleUnicode(sa),
 			DataToIAST,
 		},
 	},
@@ -1012,7 +1047,7 @@ var Convertors = map[string](map[string]([]func(string) string)){
 		"devanagari": []func(string) string{
 			SLPToIAST,
 			IASTToUAST,
-			HandleUnicode,
+			CreateHandleUnicode(sa),
 			CreateDataFunction(sa),
 		},
 	},
@@ -1022,7 +1057,7 @@ var Convertors = map[string](map[string]([]func(string) string)){
 		},
 		"devanagari": []func(string) string{
 			IASTToUAST,
-			HandleUnicode,
+			CreateHandleUnicode(sa),
 			CreateDataFunction(sa),
 		},
 	},
