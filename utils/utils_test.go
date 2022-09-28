@@ -76,6 +76,14 @@ func TestUASTToIAST(t *testing.T) {
 			input:  "dh-",
 			output: "dh",
 		},
+		{
+			input:  "l/i//au/",
+			output: "līã",
+		},
+		{
+			input:  "l-/au/",
+			output: "lã",
+		},
 	}
 	for _, tC := range testCases {
 		t.Run("__"+tC.input+"__", func(t *testing.T) {

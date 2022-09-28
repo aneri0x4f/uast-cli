@@ -748,6 +748,12 @@ func DataToIAST(data string) string {
 			}
 
 			if i == len(str)-1 {
+				if curr == "ḥ" || curr == "ṃ" || curr == "ã" {
+					arr = append(arr, curr)
+					i++
+					continue
+				}
+
 				arr = append(arr, curr+"a")
 				i++
 				continue
