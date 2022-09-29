@@ -1061,6 +1061,12 @@ var Convertors = map[string](map[string]([]func(string) string)){
 			CreateHandleUnicode(sa),
 			CreateDataFunction(sa),
 		},
+		"guj": []func(string) string{
+			SLPToIAST,
+			IASTToUAST,
+			CreateHandleUnicode(gu),
+			CreateDataFunction(gu),
+		},
 	},
 	"iast": {
 		"uast": []func(string) string{
