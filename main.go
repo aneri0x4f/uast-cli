@@ -143,6 +143,9 @@ func main() {
 		} else {
 			var arr []string
 			l := strings.Split(strings.TrimSpace(s), " ")
+			if len(l) > 2 {
+				continue
+			}
 
 			if (len(l) == 2 || len(l) == 1) && strings.HasPrefix(l[0], "!") {
 				switch l[0][1:] {
