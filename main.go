@@ -148,6 +148,10 @@ func main() {
 				switch l[0][1:] {
 				case "from":
 					{
+						if len(l) == 1 {
+							l = append(l, *from)
+						}
+
 						switch l[1] {
 						case RAW, DEVANAGARI, IAST, UAST, SLP1:
 							*from = l[1]
@@ -161,6 +165,10 @@ func main() {
 					}
 				case "to":
 					{
+						if len(l) == 1 {
+							l = append(l, *to)
+						}
+
 						switch l[1] {
 						case DEVANAGARI, IAST, UAST, GUJARATI:
 							*to = l[1]
