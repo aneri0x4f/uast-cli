@@ -129,7 +129,7 @@ var gujaratiCharDict = langMap{
 		"au": "ૌ",
 		"ṃ":  "ં",
 		"ḥ":  "ઃ",
-		"ã":  "ँ",
+		"ã":  "ઁ",
 		"-":  "्",
 	},
 	consonants: charMap{
@@ -1041,6 +1041,11 @@ var Convertors = map[string](map[string]([]func(string) string)){
 			CreateHandleUnicode(sa),
 			DataToIAST,
 		},
+		"guj": []func(string) string{
+			DevanagariToUAST,
+			CreateHandleUnicode(gu),
+			CreateDataFunction(gu),
+		},
 	},
 	"slp": {
 		"iast": []func(string) string{
@@ -1065,6 +1070,11 @@ var Convertors = map[string](map[string]([]func(string) string)){
 			IASTToUAST,
 			CreateHandleUnicode(sa),
 			CreateDataFunction(sa),
+		},
+		"guj": []func(string) string{
+			IASTToUAST,
+			CreateHandleUnicode(gu),
+			CreateDataFunction(gu),
 		},
 	},
 }
