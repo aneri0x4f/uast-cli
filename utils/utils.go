@@ -964,7 +964,7 @@ func IASTToUAST(data string) string {
 		}
 
 		if in(unAspiratedConsonants, curr) &&
-			k+1 < len(arr) && strings.Contains(arr[k+1], "h") {
+			k+1 < len(arr) && arr[k+1] == "h" {
 			val += "a"
 		}
 
