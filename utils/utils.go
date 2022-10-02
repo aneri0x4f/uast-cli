@@ -467,10 +467,9 @@ func CreateHandleUnicode(lang langList) func(string) string {
 	}
 
 	return func(uast string) string {
-		uast = strings.Trim(strings.ToLower(uast), "\\")
-
 		var str []string
-		for _, v := range uast {
+
+		for _, v := range strings.Trim(strings.ToLower(uast), "\\") {
 			str = append(str, string(v))
 		}
 
