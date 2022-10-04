@@ -681,7 +681,7 @@ func DevanagariToUAST(data string) string {
 func DataToIAST(data string) string {
 	data = string(
 		regexp.
-			MustCompile(`[\[\]\(\)\,\?\!\^\~\@\#\$\%\&\*\_\;\n\t\r\f]`).
+			MustCompile(`[\[\](),?!^~@#$%&*_;\n\v\t\r\f]`).
 			ReplaceAll([]byte(data), []byte("")),
 	)
 
@@ -824,7 +824,7 @@ func IASTToUAST(data string) string {
 	var str []string
 	for _, v := range string(
 		regexp.
-			MustCompile(`[\[\]\(\)\,\?\!\^\~\@\#\$\%\&\*\-\_\;]`).
+			MustCompile(`[\[\](),?!^~@#$%&*\-_;]`).
 			ReplaceAll([]byte(data), []byte("")),
 	) {
 		str = append(str, string(v))
@@ -1020,24 +1020,42 @@ func SLPToIAST(data string) string {
 	return strings.Join(str, "")
 }
 
+type funcList string
+
+const (
+	hu funcList = "handleUnicode"
+	df funcList = "dataFunction"
+)
+
+var builderFuncs = map[langList](map[funcList](func(string) string)){
+	gu: {
+		hu: CreateHandleUnicode(gu),
+		df: CreateDataFunction(gu),
+	},
+	sa: {
+		hu: CreateHandleUnicode(sa),
+		df: CreateDataFunction(sa),
+	},
+}
+
 var Convertors = map[string](map[string]([]func(string) string)){
 	"raw": {
 		"iast": []func(string) string{
-			CreateHandleUnicode(sa),
+			builderFuncs[sa][hu],
 		},
 	},
 	"uast": {
 		"devanagari": []func(string) string{
-			CreateHandleUnicode(sa),
-			CreateDataFunction(sa),
+			builderFuncs[sa][hu],
+			builderFuncs[sa][df],
 		},
 		"iast": []func(string) string{
-			CreateHandleUnicode(sa),
+			builderFuncs[sa][hu],
 			DataToIAST,
 		},
 		"guj": []func(string) string{
-			CreateHandleUnicode(gu),
-			CreateDataFunction(gu),
+			builderFuncs[gu][hu],
+			builderFuncs[gu][df],
 		},
 	},
 	"devanagari": {
@@ -1046,13 +1064,13 @@ var Convertors = map[string](map[string]([]func(string) string)){
 		},
 		"iast": []func(string) string{
 			DevanagariToUAST,
-			CreateHandleUnicode(sa),
+			builderFuncs[sa][hu],
 			DataToIAST,
 		},
 		"guj": []func(string) string{
 			DevanagariToUAST,
-			CreateHandleUnicode(gu),
-			CreateDataFunction(gu),
+			builderFuncs[gu][hu],
+			builderFuncs[gu][df],
 		},
 	},
 	"slp": {
@@ -1066,14 +1084,14 @@ var Convertors = map[string](map[string]([]func(string) string)){
 		"devanagari": []func(string) string{
 			SLPToIAST,
 			IASTToUAST,
-			CreateHandleUnicode(sa),
-			CreateDataFunction(sa),
+			builderFuncs[sa][hu],
+			builderFuncs[sa][df],
 		},
 		"guj": []func(string) string{
 			SLPToIAST,
 			IASTToUAST,
-			CreateHandleUnicode(gu),
-			CreateDataFunction(gu),
+			builderFuncs[gu][hu],
+			builderFuncs[gu][df],
 		},
 	},
 	"iast": {
@@ -1082,13 +1100,13 @@ var Convertors = map[string](map[string]([]func(string) string)){
 		},
 		"devanagari": []func(string) string{
 			IASTToUAST,
-			CreateHandleUnicode(sa),
-			CreateDataFunction(sa),
+			builderFuncs[sa][hu],
+			builderFuncs[sa][df],
 		},
 		"guj": []func(string) string{
 			IASTToUAST,
-			CreateHandleUnicode(gu),
-			CreateDataFunction(gu),
+			builderFuncs[gu][hu],
+			builderFuncs[gu][df],
 		},
 	},
 }
