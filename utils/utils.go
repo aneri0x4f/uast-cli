@@ -1,6 +1,9 @@
 package utils
 
-import "strings"
+import (
+	"regexp"
+	"strings"
+)
 
 type charMap = map[string]string
 
@@ -676,9 +679,11 @@ func DevanagariToUAST(data string) string {
 
 // Convert parsed UAST string to IAST
 func DataToIAST(data string) string {
-	data = strings.ReplaceAll(data, "\n", "")
-	data = strings.ReplaceAll(data, "/'/", "/_/")
-	data = strings.ReplaceAll(data, "/_/", "/'/")
+	data = string(
+		regexp.
+			MustCompile(`[\[\]\(\),?!_;\n\t\r\f]`).
+			ReplaceAll([]byte(data), []byte("")),
+	)
 
 	var ans []string
 
@@ -817,7 +822,11 @@ func DataToIAST(data string) string {
 // Convert IAST to UAST
 func IASTToUAST(data string) string {
 	var str []string
-	for _, v := range data {
+	for _, v := range string(
+		regexp.
+			MustCompile(`[\[\]\(\),?!-_;]`).
+			ReplaceAll([]byte(data), []byte("")),
+	) {
 		str = append(str, string(v))
 	}
 
