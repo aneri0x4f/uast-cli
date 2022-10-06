@@ -13,6 +13,8 @@ package utils
 import (
 	"regexp"
 	"strings"
+
+	"golang.org/x/text/unicode/norm"
 )
 
 type charMap = map[string]string
@@ -520,7 +522,7 @@ func CreateHandleUnicode(lang langList) func(string) string {
 			i++
 		}
 
-		return strings.Join(arr, "")
+		return norm.NFC.String(strings.Join(arr, ""))
 	}
 }
 
@@ -610,14 +612,14 @@ func CreateDataFunction(lang langList) func(string) string {
 			ans = append(ans, strings.Join(arr, ""))
 		}
 
-		return strings.Join(ans, "")
+		return norm.NFC.String(strings.Join(ans, ""))
 	}
 }
 
 // Convert देवनागरी to UAST
 func DevanagariToUAST(data string) string {
 	var str []string
-	for _, v := range data {
+	for _, v := range norm.NFC.String(data) {
 		str = append(str, string(v))
 	}
 
@@ -684,7 +686,7 @@ func DevanagariToUAST(data string) string {
 		arr = append(arr, val)
 	}
 
-	return strings.Join(arr, "")
+	return norm.NFC.String(strings.Join(arr, ""))
 }
 
 // Convert parsed UAST string to IAST
@@ -692,7 +694,7 @@ func DataToIAST(data string) string {
 	data = string(
 		regexp.
 			MustCompile(`[\[\](),?!^~=@#$%&*_;\n\v\t\r\f]`).
-			ReplaceAll([]byte(data), []byte("")),
+			ReplaceAll([]byte(norm.NFC.String(data)), []byte("")),
 	)
 
 	var ans []string
@@ -826,7 +828,7 @@ func DataToIAST(data string) string {
 		ans = append(ans, strings.Join(arr, ""))
 	}
 
-	return strings.Join(ans, "")
+	return norm.NFC.String(strings.Join(ans, ""))
 }
 
 // Convert IAST to UAST
@@ -835,7 +837,7 @@ func IASTToUAST(data string) string {
 	for _, v := range string(
 		regexp.
 			MustCompile(`[\[\](),?!^~=@#$%&*\-_;]`).
-			ReplaceAll([]byte(data), []byte("")),
+			ReplaceAll([]byte(norm.NFC.String(data)), []byte("")),
 	) {
 		str = append(str, string(v))
 	}
@@ -1015,7 +1017,7 @@ func IASTToUAST(data string) string {
 		}
 	}
 
-	return strings.Join(final, "")
+	return norm.NFC.String(strings.Join(final, ""))
 }
 
 // Convert SLP1 to IAST
@@ -1027,7 +1029,7 @@ func SLPToIAST(data string) string {
 		}
 	}
 
-	return strings.Join(str, "")
+	return norm.NFC.String(strings.Join(str, ""))
 }
 
 type funcList string
