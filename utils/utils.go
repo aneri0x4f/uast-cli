@@ -691,7 +691,7 @@ func DevanagariToUAST(data string) string {
 func DataToIAST(data string) string {
 	data = string(
 		regexp.
-			MustCompile(`[\[\](),?!^~@#$%&*_;\n\v\t\r\f]`).
+			MustCompile(`[\[\](),?!^~=@#$%&*_;\n\v\t\r\f]`).
 			ReplaceAll([]byte(data), []byte("")),
 	)
 
@@ -834,7 +834,7 @@ func IASTToUAST(data string) string {
 	var str []string
 	for _, v := range string(
 		regexp.
-			MustCompile(`[\[\](),?!^~@#$%&*\-_;]`).
+			MustCompile(`[\[\](),?!^~=@#$%&*\-_;]`).
 			ReplaceAll([]byte(data), []byte("")),
 	) {
 		str = append(str, string(v))
