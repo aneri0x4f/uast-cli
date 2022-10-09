@@ -564,7 +564,7 @@ func CreateDataFunction(lang langList) func(string) string {
 				}
 
 				if slices.Contains(
-					[]string{",", "?", "!", "\"", ":"},
+					[]string{",", "?", "!", "\"", ":", "(", ")"},
 					curr,
 				) {
 					arr = append(arr, curr)
@@ -692,7 +692,7 @@ func DevanagariToUAST(data string) string {
 func DataToIAST(data string) string {
 	data = string(
 		regexp.
-			MustCompile(`[\[\]()^~=@#$%&*_;\n\v\t\r\f]`).
+			MustCompile(`[\[\]^~=@#$%&*_;\n\v\t\r\f]`).
 			ReplaceAll([]byte(norm.NFC.String(data)), []byte("")),
 	)
 
@@ -741,7 +741,7 @@ func DataToIAST(data string) string {
 			}
 
 			if slices.Contains(
-				[]string{",", "?", "!", "\"", "-", ":"},
+				[]string{",", "?", "!", "\"", "-", ":", "(", ")"},
 				curr,
 			) {
 				arr = append(arr, curr)
@@ -844,7 +844,7 @@ func IASTToUAST(data string) string {
 	var str []string
 	for _, v := range string(
 		regexp.
-			MustCompile(`[\[\]()^~=@#$%&*\-_;]`).
+			MustCompile(`[\[\]^~=@#$%&*\-_;]`).
 			ReplaceAll([]byte(norm.NFC.String(data)), []byte("")),
 	) {
 		str = append(str, string(v))
