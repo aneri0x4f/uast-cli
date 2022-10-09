@@ -1,3 +1,8 @@
 {
-    "makefile.extensionOutputFolder": "./.vscode"
+  "makefile.extensionOutputFolder": "./.vscode",
+  "editor.formatOnSave": true,
+  "editor.trimAutoWhitespace": true,
+  "editor.autoClosingBrackets": "always",
+  "editor.autoIndent": "advanced",
+  "editor.defaultFormatter": "golang.go"
 }

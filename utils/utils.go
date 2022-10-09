@@ -2,7 +2,6 @@
 // हे कृष्ण हे यादव हे सखेति।
 // अजानता महिमानं तवेदं
 // मया प्रमादात्प्रणयेन वापि॥
-
 // यच्चावहासार्थमसत्कृतोऽसि
 // विहारशय्यासनभोजनेषु।
 // एकोऽथवाप्यच्युत तत्समक्षं
@@ -14,6 +13,7 @@ import (
 	"regexp"
 	"strings"
 
+	"golang.org/x/exp/slices"
 	"golang.org/x/text/unicode/norm"
 )
 
@@ -452,16 +452,6 @@ var slpDataDict = charMap{
 	"~": "ã",
 }
 
-func in(a []string, x string) bool {
-	for _, v := range a {
-		if v == x {
-			return true
-		}
-	}
-
-	return false
-}
-
 // Function to map special characters to Unicode
 func CreateHandleUnicode(lang langList) func(string) string {
 	langDict := charMap{}
@@ -573,7 +563,16 @@ func CreateDataFunction(lang langList) func(string) string {
 					continue
 				}
 
-				if in(unAspiratedConsonants, curr) {
+				if slices.Contains(
+					[]string{",", "?", "!", "\"", ":", "'"},
+					curr,
+				) {
+					arr = append(arr, curr)
+					i++
+					continue
+				}
+
+				if slices.Contains(unAspiratedConsonants, curr) {
 					var consonant string
 					if i+1 < len(str) && str[i+1] == "h" {
 						consonant = strings.Join(str[i:i+2], "")
@@ -678,7 +677,7 @@ func DevanagariToUAST(data string) string {
 			continue
 		}
 
-		if in(unAspiratedConsonants, val) && nextVal == "h" {
+		if slices.Contains(unAspiratedConsonants, val) && nextVal == "h" {
 			arr = append(arr, val+"a")
 			continue
 		}
@@ -693,7 +692,7 @@ func DevanagariToUAST(data string) string {
 func DataToIAST(data string) string {
 	data = string(
 		regexp.
-			MustCompile(`[\[\](),?!^~=@#$%&*_;\n\v\t\r\f]`).
+			MustCompile(`[\[\]()^~=@#$%&*_;\n\v\t\r\f]`).
 			ReplaceAll([]byte(norm.NFC.String(data)), []byte("")),
 	)
 
@@ -741,6 +740,15 @@ func DataToIAST(data string) string {
 				continue
 			}
 
+			if slices.Contains(
+				[]string{",", "?", "!", "\"", "-", ":", "'"},
+				curr,
+			) {
+				arr = append(arr, curr)
+				i++
+				continue
+			}
+
 			var next string
 			if i+1 < len(str) {
 				next = str[i+1]
@@ -775,7 +783,7 @@ func DataToIAST(data string) string {
 				continue
 			}
 
-			if in(unAspiratedConsonants, curr) && next == "h" {
+			if slices.Contains(unAspiratedConsonants, curr) && next == "h" {
 				var last string
 				if i+2 < len(str) {
 					last = str[i+2]
@@ -836,7 +844,7 @@ func IASTToUAST(data string) string {
 	var str []string
 	for _, v := range string(
 		regexp.
-			MustCompile(`[\[\](),?!^~=@#$%&*\-_;]`).
+			MustCompile(`[\[\]()^~=@#$%&*\-_;]`).
 			ReplaceAll([]byte(norm.NFC.String(data)), []byte("")),
 	) {
 		str = append(str, string(v))
@@ -853,7 +861,7 @@ func IASTToUAST(data string) string {
 		}
 
 		if _, ok := devanagariCharDict.consonants[curr]; ok {
-			if in(unAspiratedConsonants, curr) {
+			if slices.Contains(unAspiratedConsonants, curr) {
 				if next == "a" && (i+2 < len(str) && str[i+2] == "h") {
 					arr = append(arr, curr+"\\")
 					i += 2
@@ -983,7 +991,7 @@ func IASTToUAST(data string) string {
 			val = curr
 		}
 
-		if in(unAspiratedConsonants, curr) &&
+		if slices.Contains(unAspiratedConsonants, curr) &&
 			k+1 < len(arr) && arr[k+1] == "h" {
 			val += "a"
 		}
