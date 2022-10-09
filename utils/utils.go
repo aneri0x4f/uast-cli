@@ -564,7 +564,7 @@ func CreateDataFunction(lang langList) func(string) string {
 				}
 
 				if slices.Contains(
-					[]string{",", "?", "!", "\"", ":", "'"},
+					[]string{",", "?", "!", "\"", ":"},
 					curr,
 				) {
 					arr = append(arr, curr)
@@ -741,7 +741,7 @@ func DataToIAST(data string) string {
 			}
 
 			if slices.Contains(
-				[]string{",", "?", "!", "\"", "-", ":", "'"},
+				[]string{",", "?", "!", "\"", "-", ":"},
 				curr,
 			) {
 				arr = append(arr, curr)
