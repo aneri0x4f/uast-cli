@@ -13,6 +13,7 @@ import (
 	"regexp"
 	"strings"
 
+	"golang.org/x/exp/maps"
 	"golang.org/x/exp/slices"
 	"golang.org/x/text/unicode/norm"
 )
@@ -456,19 +457,13 @@ var slpDataDict = charMap{
 func CreateHandleUnicode(lang langList) func(string) string {
 	langDict := charMap{}
 
-	for k, v := range unicodeMap {
-		langDict[k] = v
-	}
+	maps.Copy(langDict, unicodeMap)
 
 	switch lang {
 	case gu:
-		for k, v := range gujaratiNumMap {
-			langDict[k] = v
-		}
+		maps.Copy(langDict, gujaratiNumMap)
 	default:
-		for k, v := range devanagariNumMap {
-			langDict[k] = v
-		}
+		maps.Copy(langDict, devanagariNumMap)
 	}
 
 	return func(uast string) string {
