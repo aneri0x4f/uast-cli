@@ -2,7 +2,7 @@
 .PHONY: all docker format install clean test
 
 BIN = bin/uast
-CFLAGS = -ldflags "-w -s"
+CFLAGS = -ldflags "-w -s" -x
 GOPATH = $(shell go env GOPATH)
 
 all:

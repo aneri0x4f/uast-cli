@@ -724,13 +724,13 @@ func DataToIAST(data string) string {
 			curr := str[i]
 
 			if curr == "'" {
-				// arr.push('॑');
+				// arr = append(arr, "॑")
 				i++
 				continue
 			}
 
 			if curr == "`" {
-				// arr.push('॒');
+				// arr = append(arr, "॒")
 				i++
 				continue
 			}
