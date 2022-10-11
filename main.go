@@ -10,7 +10,6 @@ import (
 	"flag"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"os"
 	"strings"
@@ -87,7 +86,7 @@ func main() {
 	}
 
 	if *input != "" && *output != "" {
-		f, err := ioutil.ReadFile(*input)
+		f, err := os.ReadFile(*input)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -108,7 +107,7 @@ func main() {
 				ans = append(ans, strings.Join(arr, " "))
 			}
 
-			if ioutil.WriteFile(*output, []byte(strings.Join(ans, "\n")), 0666) != nil {
+			if os.WriteFile(*output, []byte(strings.Join(ans, "\n")), 0666) != nil {
 				log.Fatal(err)
 			}
 		}
