@@ -979,12 +979,7 @@ func IASTToUAST(data string) string {
 			curr = strings.ReplaceAll(curr, j, "\\/"+j+"/\\")
 		}
 
-		var val string
-		if v, ok := iastDataDict[curr]; ok {
-			val = "/" + v + "/"
-		} else {
-			val = curr
-		}
+		val := curr
 
 		if slices.Contains(unAspiratedConsonants, curr) &&
 			k+1 < len(arr) && arr[k+1] == "h" {
