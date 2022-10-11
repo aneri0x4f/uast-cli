@@ -1,5 +1,5 @@
 .DEFAULT_GOAL := all
-.PHONY: all docker format install clean test
+.PHONY: all docker format install clean upgrade test
 
 BIN = bin/uast
 CFLAGS = -ldflags "-w -s" -x
@@ -19,12 +19,16 @@ docker:
 format:
 	gofmt -s -w **/*.go
 
-install: all
+install: upgrade all
 	cp $(BIN) $(GOPATH)/bin
 
 clean:
 	go clean -i -n
 	rm -rfv $(BIN) $(GOPATH)/bin/uast
+
+upgrade:
+	go get -u -v
+	go mod tidy
 
 test:
 	go test -v -cover ./...
