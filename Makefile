@@ -1,5 +1,5 @@
 .DEFAULT_GOAL := all
-.PHONY: all docker format install clean upgrade test
+.PHONY: all docker podman format install clean upgrade test
 
 BIN = bin/uast
 CFLAGS = -ldflags "-w -s" -x
