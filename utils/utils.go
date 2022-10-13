@@ -546,16 +546,19 @@ func CreateDataFunction(lang langList) func(string) string {
 			var arr []string
 			for i := 0; i < len(str); {
 				curr := str[i]
-				if curr == "'" {
-					arr = append(arr, "॑")
-					i++
-					continue
-				}
 
-				if curr == "`" {
-					arr = append(arr, "॒")
-					i++
-					continue
+				if lang == sa {
+					if curr == "'" {
+						arr = append(arr, "॑")
+						i++
+						continue
+					}
+
+					if curr == "`" {
+						arr = append(arr, "॒")
+						i++
+						continue
+					}
 				}
 
 				if slices.Contains(
