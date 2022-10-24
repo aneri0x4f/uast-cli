@@ -1056,6 +1056,12 @@ var Convertors = map[string](map[string]([]func(string) string)){
 		"iast": []func(string) string{
 			builderFuncs[sa][hu],
 		},
+		"devanagari": []func(string) string{
+			builderFuncs[sa][hu],
+			IASTToUAST,
+			builderFuncs[sa][hu],
+			builderFuncs[sa][df],
+		},
 	},
 	"uast": {
 		"devanagari": []func(string) string{
