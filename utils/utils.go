@@ -2140,18 +2140,32 @@ type funcList string
 const (
 	hu funcList = "handleUnicode"
 	df funcList = "dataFunction"
+	sd funcList = "scriptToDevanagari"
 )
 
-var builderFuncs = map[langList](map[funcList](func(string) string)){
-	gu: {
-		hu: CreateHandleUnicode(gu),
-		df: CreateDataFunction(gu),
-	},
-	sa: {
-		hu: CreateHandleUnicode(sa),
-		df: CreateDataFunction(sa),
-	},
+func makeBuilder() map[langList](map[funcList](func(string) string)) {
+	m := make(map[langList](map[funcList](func(string) string)))
+
+	for _, v := range []langList{
+		gu,
+		sa,
+		ml,
+		or,
+		te,
+		kn,
+		ta,
+	} {
+		m[v] = map[funcList]func(string) string{
+			df: CreateDataFunction(v),
+			hu: CreateHandleUnicode(v),
+			sd: CreateScriptFunction(v),
+		}
+	}
+
+	return m
 }
+
+var builderFuncs = makeBuilder()
 
 var Convertors = map[string](map[string]([]func(string) string)){
 	"raw": {
@@ -2174,6 +2188,36 @@ var Convertors = map[string](map[string]([]func(string) string)){
 			builderFuncs[gu][hu],
 			builderFuncs[gu][df],
 		},
+		"or": []func(string) string{
+			builderFuncs[or][hu],
+			IASTToUAST,
+			builderFuncs[or][hu],
+			builderFuncs[or][df],
+		},
+		"kn": []func(string) string{
+			builderFuncs[kn][hu],
+			IASTToUAST,
+			builderFuncs[kn][hu],
+			builderFuncs[kn][df],
+		},
+		"ml": []func(string) string{
+			builderFuncs[ml][hu],
+			IASTToUAST,
+			builderFuncs[ml][hu],
+			builderFuncs[ml][df],
+		},
+		"ta": []func(string) string{
+			builderFuncs[ta][hu],
+			IASTToUAST,
+			builderFuncs[ta][hu],
+			builderFuncs[ta][df],
+		},
+		"te": []func(string) string{
+			builderFuncs[te][hu],
+			IASTToUAST,
+			builderFuncs[te][hu],
+			builderFuncs[te][df],
+		},
 	},
 	"uast": {
 		"devanagari": []func(string) string{
@@ -2187,6 +2231,26 @@ var Convertors = map[string](map[string]([]func(string) string)){
 		"gu": []func(string) string{
 			builderFuncs[gu][hu],
 			builderFuncs[gu][df],
+		},
+		"or": []func(string) string{
+			builderFuncs[or][hu],
+			builderFuncs[or][df],
+		},
+		"ta": []func(string) string{
+			builderFuncs[ta][hu],
+			builderFuncs[ta][df],
+		},
+		"te": []func(string) string{
+			builderFuncs[te][hu],
+			builderFuncs[te][df],
+		},
+		"kn": []func(string) string{
+			builderFuncs[kn][hu],
+			builderFuncs[kn][df],
+		},
+		"ml": []func(string) string{
+			builderFuncs[ml][hu],
+			builderFuncs[ml][df],
 		},
 	},
 	"devanagari": {
@@ -2202,6 +2266,31 @@ var Convertors = map[string](map[string]([]func(string) string)){
 			DevanagariToUAST,
 			builderFuncs[gu][hu],
 			builderFuncs[gu][df],
+		},
+		"or": []func(string) string{
+			DevanagariToUAST,
+			builderFuncs[or][hu],
+			builderFuncs[or][df],
+		},
+		"kn": []func(string) string{
+			DevanagariToUAST,
+			builderFuncs[kn][hu],
+			builderFuncs[kn][df],
+		},
+		"te": []func(string) string{
+			DevanagariToUAST,
+			builderFuncs[te][hu],
+			builderFuncs[te][df],
+		},
+		"ta": []func(string) string{
+			DevanagariToUAST,
+			builderFuncs[ta][hu],
+			builderFuncs[ta][df],
+		},
+		"ml": []func(string) string{
+			DevanagariToUAST,
+			builderFuncs[ml][hu],
+			builderFuncs[ml][df],
 		},
 	},
 	"slp": {
@@ -2224,6 +2313,36 @@ var Convertors = map[string](map[string]([]func(string) string)){
 			builderFuncs[gu][hu],
 			builderFuncs[gu][df],
 		},
+		"or": []func(string) string{
+			SLPToIAST,
+			IASTToUAST,
+			builderFuncs[or][hu],
+			builderFuncs[or][df],
+		},
+		"kn": []func(string) string{
+			SLPToIAST,
+			IASTToUAST,
+			builderFuncs[kn][hu],
+			builderFuncs[kn][df],
+		},
+		"ta": []func(string) string{
+			SLPToIAST,
+			IASTToUAST,
+			builderFuncs[ta][hu],
+			builderFuncs[ta][df],
+		},
+		"te": []func(string) string{
+			SLPToIAST,
+			IASTToUAST,
+			builderFuncs[te][hu],
+			builderFuncs[te][df],
+		},
+		"ml": []func(string) string{
+			SLPToIAST,
+			IASTToUAST,
+			builderFuncs[ml][hu],
+			builderFuncs[ml][df],
+		},
 	},
 	"iast": {
 		"uast": []func(string) string{
@@ -2238,6 +2357,121 @@ var Convertors = map[string](map[string]([]func(string) string)){
 			IASTToUAST,
 			builderFuncs[gu][hu],
 			builderFuncs[gu][df],
+		},
+		"or": []func(string) string{
+			IASTToUAST,
+			builderFuncs[or][hu],
+			builderFuncs[or][df],
+		},
+		"kn": []func(string) string{
+			IASTToUAST,
+			builderFuncs[kn][hu],
+			builderFuncs[kn][df],
+		},
+		"ta": []func(string) string{
+			IASTToUAST,
+			builderFuncs[ta][hu],
+			builderFuncs[ta][df],
+		},
+		"te": []func(string) string{
+			IASTToUAST,
+			builderFuncs[gu][hu],
+			builderFuncs[gu][df],
+		},
+		"ml": []func(string) string{
+			IASTToUAST,
+			builderFuncs[ml][hu],
+			builderFuncs[ml][df],
+		},
+	},
+	"gu": {
+		"devanagari": []func(string) string{
+			builderFuncs[gu][sd],
+		},
+		"uast": []func(string) string{
+			builderFuncs[gu][sd],
+			DevanagariToUAST,
+		},
+		"iast": []func(string) string{
+			builderFuncs[gu][sd],
+			DevanagariToUAST,
+			builderFuncs[sa][hu],
+			DataToIAST,
+		},
+	},
+	"or": {
+		"devanagari": []func(string) string{
+			builderFuncs[or][sd],
+		},
+		"uast": []func(string) string{
+			builderFuncs[or][sd],
+			DevanagariToUAST,
+		},
+		"iast": []func(string) string{
+			builderFuncs[or][sd],
+			DevanagariToUAST,
+			builderFuncs[sa][hu],
+			DataToIAST,
+		},
+	},
+	"kn": {
+		"devanagari": []func(string) string{
+			builderFuncs[kn][sd],
+		},
+		"uast": []func(string) string{
+			builderFuncs[kn][sd],
+			DevanagariToUAST,
+		},
+		"iast": []func(string) string{
+			builderFuncs[kn][sd],
+			DevanagariToUAST,
+			builderFuncs[sa][hu],
+			DataToIAST,
+		},
+	},
+	"te": {
+		"devanagari": []func(string) string{
+			builderFuncs[te][sd],
+		},
+		"uast": []func(string) string{
+			builderFuncs[te][sd],
+			DevanagariToUAST,
+		},
+		"iast": []func(string) string{
+			builderFuncs[te][sd],
+			DevanagariToUAST,
+			builderFuncs[sa][hu],
+			DataToIAST,
+		},
+	},
+	"ta": {
+		"devanagari": []func(string) string{
+			builderFuncs[ta][sd],
+		},
+		"uast": []func(string) string{
+			builderFuncs[ta][sd],
+			DevanagariToUAST,
+		},
+		"iast": []func(string) string{
+			builderFuncs[ta][sd],
+			DevanagariToUAST,
+			builderFuncs[sa][hu],
+			DataToIAST,
+		},
+	},
+	"ml": {
+		"devanagari": []func(string) string{
+			builderFuncs[ml][sd],
+		},
+		"uast": []func(string) string{
+			builderFuncs[ml][sd],
+			DevanagariToUAST,
+		},
+		"iast": []func(string) string{
+			builderFuncs[ml][sd],
+			DevanagariToUAST,
+			builderFuncs[sa][hu],
+			DataToIAST,
 		},
 	},
 }
