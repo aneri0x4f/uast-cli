@@ -127,6 +127,471 @@ var gujaratiCharDict = langMap{
 	},
 }
 
+var tamilCharDict = langMap{
+	misc: charMap{
+		"।": ".",
+		"॥": "..",
+		"𑌽": "'",
+		"𑍐": "om",
+	},
+	numbers: charMap{
+		"௦": "0",
+		"௧": "1",
+		"௨": "2",
+		"௩": "3",
+		"௪": "4",
+		"௫": "5",
+		"௬": "6",
+		"௭": "7",
+		"௮": "8",
+		"௯": "9",
+	},
+	vowels: charMap{
+		"a":  "𑌅",
+		"ā":  "𑌆",
+		"i":  "𑌇",
+		"ī":  "𑌈",
+		"u":  "𑌉",
+		"ū":  "𑌊",
+		"ṛ":  "𑌋",
+		"ṝ":  "𑍠",
+		"ḷ":  "𑌌",
+		"ḹ":  "𑍡",
+		"e":  "𑌏",
+		"ai": "𑌐",
+		"o":  "𑌓",
+		"au": "𑌔",
+	},
+	vowelSigns: charMap{
+		"a":  "",
+		"ā":  "𑌾",
+		"i":  "𑌿",
+		"ī":  "𑍀",
+		"u":  "𑍁",
+		"ū":  "𑍂",
+		"ṛ":  "𑍃",
+		"ṝ":  "𑍄",
+		"ḷ":  "𑍢",
+		"ḹ":  "𑍣",
+		"e":  "𑍇",
+		"ai": "𑍈",
+		"o":  "𑍋",
+		"au": "𑍗",
+		"ṃ":  "𑌂",
+		"ḥ":  "𑌃",
+		"ã":  "𑌁",
+		"-":  "𑍍",
+	},
+	consonants: charMap{
+		"k":  "𑌕",
+		"kh": "𑌖",
+		"g":  "𑌗",
+		"gh": "𑌘",
+		"ṅ":  "𑌙",
+		"c":  "𑌚",
+		"ch": "𑌛",
+		"j":  "𑌜",
+		"jh": "𑌝",
+		"ñ":  "𑌞",
+		"ṭ":  "𑌟",
+		"ṭh": "𑌠",
+		"ḍ":  "𑌡",
+		"ḍh": "𑌢",
+		"ṇ":  "𑌣",
+		"t":  "𑌤",
+		"th": "𑌥",
+		"d":  "𑌦",
+		"dh": "𑌧",
+		"n":  "𑌨",
+		"p":  "𑌪",
+		"ph": "𑌫",
+		"b":  "𑌬",
+		"bh": "𑌭",
+		"m":  "𑌮",
+		"y":  "𑌯",
+		"r":  "𑌰",
+		"l":  "𑌲",
+		"v":  "𑌵",
+		"ś":  "𑌶",
+		"ṣ":  "𑌷",
+		"s":  "𑌸",
+		"h":  "𑌹",
+		"ḻ":  "𑌳",
+	},
+}
+
+var malayalamCharDict = langMap{
+	misc: charMap{
+		"।":  ".",
+		"॥":  "..",
+		"ഽ":  "'",
+		"ഓം": "om",
+	},
+	numbers: charMap{
+		"൦": "0",
+		"൧": "1",
+		"൨": "2",
+		"൩": "3",
+		"൪": "4",
+		"൫": "5",
+		"൬": "6",
+		"൭": "7",
+		"൮": "8",
+		"൯": "9",
+	},
+	vowels: charMap{
+		"a":  "അ",
+		"ā":  "ആ",
+		"i":  "ഇ",
+		"ī":  "ഈ",
+		"u":  "ഉ",
+		"ū":  "ഊ",
+		"ṛ":  "ഋ",
+		"ṝ":  "ൠ",
+		"ḷ":  "ഌ",
+		"ḹ":  "ൡ",
+		"e":  "എ",
+		"ai": "ഐ",
+		"o":  "ഒ",
+		"au": "ഔ",
+	},
+	vowelSigns: charMap{
+		"a":  "",
+		"ā":  "ാ",
+		"i":  "ി",
+		"ī":  "ീ",
+		"u":  "ു",
+		"ū":  "ൂ",
+		"ṛ":  "ൃ",
+		"ṝ":  "ൄ",
+		"ḷ":  "ൢ",
+		"ḹ":  "ൣ",
+		"e":  "െ",
+		"ai": "ൈ",
+		"o":  "ൊ",
+		"au": "ൗ",
+		"ṃ":  "ം",
+		"ḥ":  "ഃ",
+		"ã":  "ഁ",
+		"-":  "്",
+	},
+	consonants: charMap{
+		"k":  "ക",
+		"kh": "ഖ",
+		"g":  "ഗ",
+		"gh": "ഘ",
+		"ṅ":  "ങ",
+		"c":  "ച",
+		"ch": "ഛ",
+		"j":  "ജ",
+		"jh": "ഝ",
+		"ñ":  "ഞ",
+		"ṭ":  "ട",
+		"ṭh": "ഠ",
+		"ḍ":  "ഡ",
+		"ḍh": "ഢ",
+		"ṇ":  "ണ",
+		"t":  "ത",
+		"th": "ഥ",
+		"d":  "ദ",
+		"dh": "ധ",
+		"n":  "ന",
+		"p":  "പ",
+		"ph": "ഫ",
+		"b":  "ബ",
+		"bh": "ഭ",
+		"m":  "മ",
+		"y":  "യ",
+		"r":  "ര",
+		"l":  "ല",
+		"v":  "വ",
+		"ś":  "ശ",
+		"ṣ":  "ഷ",
+		"s":  "സ",
+		"h":  "ഹ",
+		"ḻ":  "ള",
+	},
+}
+
+var teluguCharDict = langMap{
+	misc: charMap{
+		"।":  ".",
+		"॥":  "..",
+		"ఽ":  "'",
+		"ఓం": "om",
+	},
+	numbers: charMap{
+		"౦": "0",
+		"౧": "1",
+		"౨": "2",
+		"౩": "3",
+		"౪": "4",
+		"౫": "5",
+		"౬": "6",
+		"౭": "7",
+		"౮": "8",
+		"౯": "9",
+	},
+	vowels: charMap{
+		"a":  "అ",
+		"ā":  "ఆ",
+		"i":  "ఇ",
+		"ī":  "ఈ",
+		"u":  "ఉ",
+		"ū":  "ఊ",
+		"ṛ":  "ఋ",
+		"ṝ":  "ౠ",
+		"ḷ":  "ఌ",
+		"ḹ":  "ౡ",
+		"e":  "ఎ",
+		"ai": "ఐ",
+		"o":  "ఒ",
+		"au": "ఔ",
+	},
+	vowelSigns: charMap{
+		"a":  "",
+		"ā":  "ా",
+		"i":  "ి",
+		"ī":  "ీ",
+		"u":  "ు",
+		"ū":  "ూ",
+		"ṛ":  "ృ",
+		"ṝ":  "ౄ",
+		"ḷ":  "ౢ",
+		"ḹ":  "ౣ",
+		"e":  "ె",
+		"ai": "ై",
+		"o":  "ొ",
+		"au": "ౌ",
+		"ṃ":  "ం",
+		"ḥ":  "ః",
+		"ã":  "ఁ",
+		"-":  "్",
+	},
+	consonants: charMap{
+		"k":  "క",
+		"kh": "ఖ",
+		"g":  "గ",
+		"gh": "ఘ",
+		"ṅ":  "ఙ",
+		"c":  "చ",
+		"ch": "ఛ",
+		"j":  "జ",
+		"jh": "ఝ",
+		"ñ":  "ఞ",
+		"ṭ":  "ట",
+		"ṭh": "ఠ",
+		"ḍ":  "డ",
+		"ḍh": "ఢ",
+		"ṇ":  "ణ",
+		"t":  "త",
+		"th": "థ",
+		"d":  "ద",
+		"dh": "ధ",
+		"n":  "న",
+		"p":  "ప",
+		"ph": "ఫ",
+		"b":  "బ",
+		"bh": "భ",
+		"m":  "మ",
+		"y":  "య",
+		"r":  "ర",
+		"l":  "ల",
+		"v":  "వ",
+		"ś":  "శ",
+		"ṣ":  "ష",
+		"s":  "స",
+		"h":  "హ",
+		"ḻ":  "ళ",
+	},
+}
+
+var kannadaCharDict = langMap{
+	misc: charMap{
+		"।":  ".",
+		"॥":  "..",
+		"ಽ":  "'",
+		"ಓಂ": "om",
+	},
+	numbers: charMap{
+		"೦": "0",
+		"೧": "1",
+		"೨": "2",
+		"೩": "3",
+		"೪": "4",
+		"೫": "5",
+		"೬": "6",
+		"೭": "7",
+		"೮": "8",
+		"೯": "9",
+	},
+	vowels: charMap{
+		"a":  "ಅ",
+		"ā":  "ಆ",
+		"i":  "ಇ",
+		"ī":  "ಈ",
+		"u":  "ಉ",
+		"ū":  "ಊ",
+		"ṛ":  "ಋ",
+		"ṝ":  "ೠ",
+		"ḷ":  "ಌ",
+		"ḹ":  "ೡ",
+		"e":  "ಎ",
+		"ai": "ಐ",
+		"o":  "ಒ",
+		"au": "ಔ",
+	},
+	vowelSigns: charMap{
+		"a":  "",
+		"ā":  "ಾ",
+		"i":  "ಿ",
+		"ī":  "ೀ",
+		"u":  "ು",
+		"ū":  "ೂ",
+		"ṛ":  "ೃ",
+		"ṝ":  "ೄ",
+		"ḷ":  "ೢ",
+		"ḹ":  "ೣ",
+		"e":  "ೆ",
+		"ai": "ೈ",
+		"o":  "ೊ",
+		"au": "ೌ",
+		"ṃ":  "ಂ",
+		"ḥ":  "ಃ",
+		"ã":  "ಁ",
+		"-":  "್",
+	},
+	consonants: charMap{
+		"k":  "ಕ",
+		"kh": "ಖ",
+		"g":  "ಗ",
+		"gh": "ಘ",
+		"ṅ":  "ಙ",
+		"c":  "ಚ",
+		"ch": "ಛ",
+		"j":  "ಜ",
+		"jh": "ಝ",
+		"ñ":  "ಞ",
+		"ṭ":  "ಟ",
+		"ṭh": "ಠ",
+		"ḍ":  "ಡ",
+		"ḍh": "ಢ",
+		"ṇ":  "ಣ",
+		"t":  "ತ",
+		"th": "ಥ",
+		"d":  "ದ",
+		"dh": "ಧ",
+		"n":  "ನ",
+		"p":  "ಪ",
+		"ph": "ಫ",
+		"b":  "ಬ",
+		"bh": "ಭ",
+		"m":  "ಮ",
+		"y":  "ಯ",
+		"r":  "ರ",
+		"l":  "ಲ",
+		"v":  "ವ",
+		"ś":  "ಶ",
+		"ṣ":  "ಷ",
+		"s":  "ಸ",
+		"h":  "ಹ",
+		"ḻ":  "ಳ",
+	},
+}
+
+var odiaCharDict = langMap{
+	misc: charMap{
+		"।":  ".",
+		"॥":  "..",
+		"ଽ":  "'",
+		"ଓଁ": "om",
+	},
+	numbers: charMap{
+		"୦": "0",
+		"୧": "1",
+		"୨": "2",
+		"୩": "3",
+		"୪": "4",
+		"୫": "5",
+		"୬": "6",
+		"୭": "7",
+		"୮": "8",
+		"୯": "9",
+	},
+	vowels: charMap{
+		"a":  "ଅ",
+		"ā":  "ଆ",
+		"i":  "ଇ",
+		"ī":  "ଈ",
+		"u":  "ଉ",
+		"ū":  "ଊ",
+		"ṛ":  "ଋ",
+		"ṝ":  "ୠ",
+		"ḷ":  "ଌ",
+		"ḹ":  "ୡ",
+		"e":  "ଏ",
+		"ai": "ଐ",
+		"o":  "ଓ",
+		"au": "ଔ",
+	},
+	vowelSigns: charMap{
+		"a":  "",
+		"ā":  "ା",
+		"i":  "ି",
+		"ī":  "ୀ",
+		"u":  "ୁ",
+		"ū":  "ୂ",
+		"ṛ":  "ୃ",
+		"ṝ":  "ୄ",
+		"ḷ":  "ୢ",
+		"ḹ":  "ୣ",
+		"e":  "େ",
+		"ai": "ୈ",
+		"o":  "ୋ",
+		"au": "ୌ",
+		"ṃ":  "ଂ",
+		"ḥ":  "ଃ",
+		"ã":  "ଁ",
+		"-":  "୍",
+	},
+	consonants: charMap{
+		"k":  "କ",
+		"kh": "ଖ",
+		"g":  "ଗ",
+		"gh": "ଘ",
+		"ṅ":  "ଙ",
+		"c":  "ଚ",
+		"ch": "ଛ",
+		"j":  "ଜ",
+		"jh": "ଝ",
+		"ñ":  "ଞ",
+		"ṭ":  "ଟ",
+		"ṭh": "ଠ",
+		"ḍ":  "ଡ",
+		"ḍh": "ଢ",
+		"ṇ":  "ଣ",
+		"t":  "ତ",
+		"th": "ଥ",
+		"d":  "ଦ",
+		"dh": "ଧ",
+		"n":  "ନ",
+		"p":  "ପ",
+		"ph": "ଫ",
+		"b":  "ବ",
+		"bh": "ଭ",
+		"m":  "ମ",
+		"y":  "ୟ",
+		"r":  "ର",
+		"l":  "ଲ",
+		"v":  "ୱ",
+		"ś":  "ଶ",
+		"ṣ":  "ଷ",
+		"s":  "ସ",
+		"h":  "ହ",
+		"ḻ":  "ଳ",
+	},
+}
+
 var devanagariCharDict = langMap{
 	misc: charMap{
 		"।": ".",
@@ -1133,181 +1598,6 @@ func CreateScriptFunction(lang langList) func(string) string {
 	}
 }
 
-// Function to create the function of parser
-func CreateDataFunction(lang langList) func(string) string {
-	obj := devanagariCharDict
-
-	if lang == gu {
-		obj = gujaratiCharDict
-	}
-
-	return func(data string) string {
-		var ans []string
-
-		for _, split := range strings.Split(data, "\\") {
-			if _, ok := obj.misc[split]; ok {
-				ans = append(ans, split)
-				continue
-			}
-
-			if _, ok := obj.numbers[split]; ok {
-				ans = append(ans, split)
-				continue
-			}
-
-			if v, ok := obj.vowels[split]; ok {
-				ans = append(ans, v)
-				continue
-			}
-
-			var str []string
-			for _, v := range split {
-				str = append(str, string(v))
-			}
-
-			var arr []string
-			for i := 0; i < len(str); {
-				curr := str[i]
-
-				if lang == sa {
-					if curr == "'" {
-						arr = append(arr, "॑")
-						i++
-						continue
-					}
-
-					if curr == "`" {
-						arr = append(arr, "॒")
-						i++
-						continue
-					}
-				}
-
-				if slices.Contains(
-					[]string{",", "?", "!", "\"", ":", "(", ")", "="},
-					curr,
-				) {
-					arr = append(arr, curr)
-					i++
-					continue
-				}
-
-				if slices.Contains(unAspiratedConsonants, curr) {
-					var consonant string
-					if i+1 < len(str) && str[i+1] == "h" {
-						consonant = strings.Join(str[i:i+2], "")
-						i += 2
-					} else {
-						consonant = curr
-						i++
-					}
-
-					if v, ok := obj.consonants[consonant]; ok {
-						arr = append(arr, v)
-					}
-
-					continue
-				}
-
-				if v, ok := obj.consonants[curr]; ok {
-					arr = append(arr, v)
-				}
-
-				var vowel string
-				if curr == "a" && (i+1 < len(str) &&
-					(str[i+1] == "i" || str[i+1] == "u")) {
-					vowel = strings.Join(str[i:i+2], "")
-					i += 2
-				} else {
-					vowel = curr
-					i++
-				}
-
-				if v, ok := obj.vowelSigns[vowel]; ok {
-					arr = append(arr, v)
-				}
-			}
-
-			ans = append(ans, strings.Join(arr, ""))
-		}
-
-		return norm.NFC.String(strings.Join(ans, ""))
-	}
-}
-
-// Convert देवनागरी to UAST
-func DevanagariToUAST(data string) string {
-	var str []string
-	for _, v := range norm.NFC.String(data) {
-		str = append(str, string(v))
-	}
-
-	var arr []string
-
-	for i := 0; i < len(str); i++ {
-		curr := str[i]
-
-		var next string
-		if i+1 < len(str) {
-			next = str[i+1]
-		}
-
-		if curr == "॑" {
-			arr = append(arr, "\\'")
-			continue
-		}
-
-		if curr == "॒" {
-			arr = append(arr, "\\`")
-			continue
-		}
-
-		var val string
-		if v, ok := devanagariDataDict[curr]; ok {
-			val = v
-		} else {
-			val = curr
-		}
-
-		var nextVal string
-		if v, ok := devanagariDataDict[next]; ok {
-			nextVal = v
-		} else {
-			nextVal = next
-		}
-
-		var checkVowel bool
-		for _, v := range devanagariCharDict.vowels {
-			if v == curr {
-				checkVowel = true
-				break
-			}
-		}
-
-		var checkConsonant bool
-		for _, v := range devanagariCharDict.consonants {
-			if v == next {
-				checkConsonant = true
-				break
-			}
-		}
-
-		if checkVowel && checkConsonant {
-			arr = append(arr, val+"\\")
-			continue
-		}
-
-		if slices.Contains(unAspiratedConsonants, val) && nextVal == "h" {
-			arr = append(arr, val+"a")
-			continue
-		}
-
-		arr = append(arr, val)
-	}
-
-	return norm.NFC.String(strings.Join(arr, ""))
-}
-
 // Convert parsed UAST string to IAST
 func DataToIAST(data string) string {
 	data = string(
@@ -1643,6 +1933,196 @@ func IASTToUAST(data string) string {
 	return norm.NFC.String(strings.Join(final, ""))
 }
 
+// Function to create the function of parser
+func CreateDataFunction(lang langList) func(string) string {
+	var obj langMap
+
+	switch lang {
+	case sa:
+		obj = devanagariCharDict
+	case gu:
+		obj = gujaratiCharDict
+	case ta:
+		obj = tamilCharDict
+	case ml:
+		obj = malayalamCharDict
+	case or:
+		obj = odiaCharDict
+	case kn:
+		obj = kannadaCharDict
+	case te:
+		obj = teluguCharDict
+	default:
+		panic("Unhandled case")
+	}
+
+	return func(data string) string {
+		var ans []string
+
+		for _, split := range strings.Split(data, "\\") {
+			if _, ok := obj.misc[split]; ok {
+				ans = append(ans, split)
+				continue
+			}
+
+			if _, ok := obj.numbers[split]; ok {
+				ans = append(ans, split)
+				continue
+			}
+
+			if v, ok := obj.vowels[split]; ok {
+				ans = append(ans, v)
+				continue
+			}
+
+			var str []string
+			for _, v := range split {
+				str = append(str, string(v))
+			}
+
+			var arr []string
+			for i := 0; i < len(str); {
+				curr := str[i]
+
+				if lang == sa {
+					if curr == "'" {
+						arr = append(arr, "॑")
+						i++
+						continue
+					}
+
+					if curr == "`" {
+						arr = append(arr, "॒")
+						i++
+						continue
+					}
+				}
+
+				if slices.Contains(
+					[]string{",", "?", "!", "\"", ":", "(", ")", "="},
+					curr,
+				) {
+					arr = append(arr, curr)
+					i++
+					continue
+				}
+
+				if slices.Contains(unAspiratedConsonants, curr) {
+					var consonant string
+					if i+1 < len(str) && str[i+1] == "h" {
+						consonant = strings.Join(str[i:i+2], "")
+						i += 2
+					} else {
+						consonant = curr
+						i++
+					}
+
+					if v, ok := obj.consonants[consonant]; ok {
+						arr = append(arr, v)
+					}
+
+					continue
+				}
+
+				if v, ok := obj.consonants[curr]; ok {
+					arr = append(arr, v)
+				}
+
+				var vowel string
+				if curr == "a" && (i+1 < len(str) &&
+					(str[i+1] == "i" || str[i+1] == "u")) {
+					vowel = strings.Join(str[i:i+2], "")
+					i += 2
+				} else {
+					vowel = curr
+					i++
+				}
+
+				if v, ok := obj.vowelSigns[vowel]; ok {
+					arr = append(arr, v)
+				}
+			}
+
+			ans = append(ans, strings.Join(arr, ""))
+		}
+
+		return norm.NFC.String(strings.Join(ans, ""))
+	}
+}
+
+// Convert देवनागरी to UAST
+func DevanagariToUAST(data string) string {
+	var str []string
+	for _, v := range norm.NFC.String(data) {
+		str = append(str, string(v))
+	}
+
+	var arr []string
+
+	for i := 0; i < len(str); i++ {
+		curr := str[i]
+
+		var next string
+		if i+1 < len(str) {
+			next = str[i+1]
+		}
+
+		if curr == "॑" {
+			arr = append(arr, "\\'")
+			continue
+		}
+
+		if curr == "॒" {
+			arr = append(arr, "\\`")
+			continue
+		}
+
+		var val string
+		if v, ok := devanagariDataDict[curr]; ok {
+			val = v
+		} else {
+			val = curr
+		}
+
+		var nextVal string
+		if v, ok := devanagariDataDict[next]; ok {
+			nextVal = v
+		} else {
+			nextVal = next
+		}
+
+		var checkVowel bool
+		for _, v := range devanagariCharDict.vowels {
+			if v == curr {
+				checkVowel = true
+				break
+			}
+		}
+
+		var checkConsonant bool
+		for _, v := range devanagariCharDict.consonants {
+			if v == next {
+				checkConsonant = true
+				break
+			}
+		}
+
+		if checkVowel && checkConsonant {
+			arr = append(arr, val+"\\")
+			continue
+		}
+
+		if slices.Contains(unAspiratedConsonants, val) && nextVal == "h" {
+			arr = append(arr, val+"a")
+			continue
+		}
+
+		arr = append(arr, val)
+	}
+
+	return norm.NFC.String(strings.Join(arr, ""))
+}
+
 // Convert SLP1 to IAST
 func SLPToIAST(data string) string {
 	var str []string
@@ -1688,7 +2168,7 @@ var Convertors = map[string](map[string]([]func(string) string)){
 			builderFuncs[sa][hu],
 			IASTToUAST,
 		},
-		"guj": []func(string) string{
+		"gu": []func(string) string{
 			builderFuncs[gu][hu],
 			IASTToUAST,
 			builderFuncs[gu][hu],
@@ -1704,7 +2184,7 @@ var Convertors = map[string](map[string]([]func(string) string)){
 			builderFuncs[sa][hu],
 			DataToIAST,
 		},
-		"guj": []func(string) string{
+		"gu": []func(string) string{
 			builderFuncs[gu][hu],
 			builderFuncs[gu][df],
 		},
@@ -1718,7 +2198,7 @@ var Convertors = map[string](map[string]([]func(string) string)){
 			builderFuncs[sa][hu],
 			DataToIAST,
 		},
-		"guj": []func(string) string{
+		"gu": []func(string) string{
 			DevanagariToUAST,
 			builderFuncs[gu][hu],
 			builderFuncs[gu][df],
@@ -1738,7 +2218,7 @@ var Convertors = map[string](map[string]([]func(string) string)){
 			builderFuncs[sa][hu],
 			builderFuncs[sa][df],
 		},
-		"guj": []func(string) string{
+		"gu": []func(string) string{
 			SLPToIAST,
 			IASTToUAST,
 			builderFuncs[gu][hu],
@@ -1754,7 +2234,7 @@ var Convertors = map[string](map[string]([]func(string) string)){
 			builderFuncs[sa][hu],
 			builderFuncs[sa][df],
 		},
-		"guj": []func(string) string{
+		"gu": []func(string) string{
 			IASTToUAST,
 			builderFuncs[gu][hu],
 			builderFuncs[gu][df],

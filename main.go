@@ -41,12 +41,17 @@ func main() {
 		IAST       string = "iast"
 		RAW        string = "raw"
 		SLP1       string = "slp"
-		GUJARATI   string = "guj"
+		GUJARATI   string = "gu"
+		TAMIL      string = "ta"
+		KANNADA    string = "kn"
+		ODIA       string = "or"
+		TELUGU     string = "te"
+		MALAYALAM  string = "ml"
 		DEVANAGARI string = "devanagari"
 	)
 
-	from_schemes := []string{UAST, RAW, DEVANAGARI, IAST, SLP1}
-	to_schemes := []string{UAST, DEVANAGARI, IAST, GUJARATI}
+	from_schemes := []string{UAST, RAW, DEVANAGARI, IAST, SLP1, GUJARATI, ODIA, TAMIL, TELUGU, MALAYALAM, KANNADA}
+	to_schemes := []string{UAST, DEVANAGARI, IAST, GUJARATI, TAMIL, MALAYALAM, KANNADA, TELUGU, ODIA}
 
 	from := flag.String("from", UAST,
 		fmt.Sprintf(
@@ -72,14 +77,14 @@ func main() {
 	)
 
 	switch *from {
-	case RAW, DEVANAGARI, IAST, UAST, SLP1:
+	case UAST, RAW, DEVANAGARI, IAST, SLP1, GUJARATI, ODIA, TAMIL, TELUGU, MALAYALAM, KANNADA:
 		writeBuf(buf, "`from`: "+*from+"\n")
 	default:
 		log.Printf("bad `from` value: %v: expected %v", *from, from_schemes)
 	}
 
 	switch *to {
-	case DEVANAGARI, IAST, UAST, GUJARATI:
+	case UAST, DEVANAGARI, IAST, GUJARATI, TAMIL, MALAYALAM, KANNADA, TELUGU, ODIA:
 		writeBuf(buf, "`to`: "+*to+"\n")
 	default:
 		log.Printf("bad `to` value: %v: expected %v", *to, to_schemes)
@@ -152,7 +157,7 @@ func main() {
 						}
 
 						switch l[1] {
-						case RAW, DEVANAGARI, IAST, UAST, SLP1:
+						case UAST, RAW, DEVANAGARI, IAST, SLP1, GUJARATI, ODIA, TAMIL, TELUGU, MALAYALAM, KANNADA:
 							*from = l[1]
 						default:
 							log.Printf("bad `from` value: %v: expected %v", *from, from_schemes)
@@ -169,7 +174,7 @@ func main() {
 						}
 
 						switch l[1] {
-						case DEVANAGARI, IAST, UAST, GUJARATI:
+						case UAST, DEVANAGARI, IAST, GUJARATI, TAMIL, MALAYALAM, KANNADA, TELUGU, ODIA:
 							*to = l[1]
 						default:
 							log.Printf("bad `to` value: %v: expected %v", *to, to_schemes)
