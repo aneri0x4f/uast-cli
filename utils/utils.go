@@ -839,6 +839,18 @@ var unAspiratedConsonants = []string{
 	"ṭ",
 }
 
+var allowedSymbols = []string{
+	",",
+	"?",
+	"!",
+	"\"",
+	"-",
+	":",
+	"(",
+	")",
+	"=",
+}
+
 var slpDataDict = charMap{
 	"a": "a",
 	"A": "ā",
@@ -1589,8 +1601,16 @@ func CreateScriptFunction(lang langList) func(string) string {
 		for _, v := range s {
 			l := string(v)
 
-			if v, ok := obj[l]; ok {
-				arr = append(arr, v)
+			if k, ok := obj[l]; ok {
+				arr = append(arr, k)
+				continue
+			}
+
+			if slices.Contains(
+				allowedSymbols,
+				l,
+			) {
+				arr = append(arr, l)
 			}
 		}
 
@@ -1602,7 +1622,7 @@ func CreateScriptFunction(lang langList) func(string) string {
 func DataToIAST(data string) string {
 	data = string(
 		regexp.
-			MustCompile(`[\[\]^~@#$%&*_;\n\v\t\r\f]`).
+			MustCompile(`[\[\]{}^~@#$%&*_;\n\v\t\r\f]`).
 			ReplaceAll([]byte(norm.NFC.String(data)), []byte("")),
 	)
 
@@ -1651,7 +1671,7 @@ func DataToIAST(data string) string {
 			}
 
 			if slices.Contains(
-				[]string{",", "?", "!", "\"", "-", ":", "(", ")", "="},
+				allowedSymbols,
 				curr,
 			) {
 				arr = append(arr, curr)
@@ -1754,7 +1774,7 @@ func IASTToUAST(data string) string {
 	var str []string
 	for _, v := range string(
 		regexp.
-			MustCompile(`[\[\]^~@#$%&*\-_;]`).
+			MustCompile(`[\[\]{}^~@#$%&*\-_;]`).
 			ReplaceAll([]byte(norm.NFC.String(data)), []byte("")),
 	) {
 		str = append(str, string(v))
