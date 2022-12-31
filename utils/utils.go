@@ -2398,6 +2398,36 @@ var Convertors = map[string](map[string]([]func(string) string)){
 			builderFuncs[sa][hu],
 			DataToIAST,
 		},
+		"or": []func(string) string{
+			builderFuncs[gu][sd],
+			DevanagariToUAST,
+			builderFuncs[or][hu],
+			builderFuncs[or][df],
+		},
+		"kn": []func(string) string{
+			builderFuncs[gu][sd],
+			DevanagariToUAST,
+			builderFuncs[kn][hu],
+			builderFuncs[kn][df],
+		},
+		"ta": []func(string) string{
+			builderFuncs[gu][sd],
+			DevanagariToUAST,
+			builderFuncs[ta][hu],
+			builderFuncs[ta][df],
+		},
+		"te": []func(string) string{
+			builderFuncs[gu][sd],
+			DevanagariToUAST,
+			builderFuncs[te][hu],
+			builderFuncs[te][df],
+		},
+		"ml": []func(string) string{
+			builderFuncs[gu][sd],
+			DevanagariToUAST,
+			builderFuncs[ml][hu],
+			builderFuncs[ml][df],
+		},
 	},
 	"or": {
 		"devanagari": []func(string) string{
@@ -2412,6 +2442,36 @@ var Convertors = map[string](map[string]([]func(string) string)){
 			DevanagariToUAST,
 			builderFuncs[sa][hu],
 			DataToIAST,
+		},
+		"gu": []func(string) string{
+			builderFuncs[or][sd],
+			DevanagariToUAST,
+			builderFuncs[gu][hu],
+			builderFuncs[gu][df],
+		},
+		"kn": []func(string) string{
+			builderFuncs[or][sd],
+			DevanagariToUAST,
+			builderFuncs[kn][hu],
+			builderFuncs[kn][df],
+		},
+		"ta": []func(string) string{
+			builderFuncs[or][sd],
+			DevanagariToUAST,
+			builderFuncs[ta][hu],
+			builderFuncs[ta][df],
+		},
+		"te": []func(string) string{
+			builderFuncs[or][sd],
+			DevanagariToUAST,
+			builderFuncs[te][hu],
+			builderFuncs[te][df],
+		},
+		"ml": []func(string) string{
+			builderFuncs[or][sd],
+			DevanagariToUAST,
+			builderFuncs[ml][hu],
+			builderFuncs[ml][df],
 		},
 	},
 	"kn": {
@@ -2428,6 +2488,36 @@ var Convertors = map[string](map[string]([]func(string) string)){
 			builderFuncs[sa][hu],
 			DataToIAST,
 		},
+		"or": []func(string) string{
+			builderFuncs[kn][sd],
+			DevanagariToUAST,
+			builderFuncs[or][hu],
+			builderFuncs[or][df],
+		},
+		"gu": []func(string) string{
+			builderFuncs[kn][sd],
+			DevanagariToUAST,
+			builderFuncs[gu][hu],
+			builderFuncs[gu][df],
+		},
+		"ta": []func(string) string{
+			builderFuncs[kn][sd],
+			DevanagariToUAST,
+			builderFuncs[ta][hu],
+			builderFuncs[ta][df],
+		},
+		"te": []func(string) string{
+			builderFuncs[kn][sd],
+			DevanagariToUAST,
+			builderFuncs[te][hu],
+			builderFuncs[te][df],
+		},
+		"ml": []func(string) string{
+			builderFuncs[kn][sd],
+			DevanagariToUAST,
+			builderFuncs[ml][hu],
+			builderFuncs[ml][df],
+		},
 	},
 	"te": {
 		"devanagari": []func(string) string{
@@ -2442,6 +2532,36 @@ var Convertors = map[string](map[string]([]func(string) string)){
 			DevanagariToUAST,
 			builderFuncs[sa][hu],
 			DataToIAST,
+		},
+		"or": []func(string) string{
+			builderFuncs[te][sd],
+			DevanagariToUAST,
+			builderFuncs[or][hu],
+			builderFuncs[or][df],
+		},
+		"kn": []func(string) string{
+			builderFuncs[te][sd],
+			DevanagariToUAST,
+			builderFuncs[kn][hu],
+			builderFuncs[kn][df],
+		},
+		"ta": []func(string) string{
+			builderFuncs[te][sd],
+			DevanagariToUAST,
+			builderFuncs[ta][hu],
+			builderFuncs[ta][df],
+		},
+		"gu": []func(string) string{
+			builderFuncs[te][sd],
+			DevanagariToUAST,
+			builderFuncs[gu][hu],
+			builderFuncs[gu][df],
+		},
+		"ml": []func(string) string{
+			builderFuncs[te][sd],
+			DevanagariToUAST,
+			builderFuncs[ml][hu],
+			builderFuncs[ml][df],
 		},
 	},
 	"ta": {
@@ -2458,6 +2578,36 @@ var Convertors = map[string](map[string]([]func(string) string)){
 			builderFuncs[sa][hu],
 			DataToIAST,
 		},
+		"or": []func(string) string{
+			builderFuncs[ta][sd],
+			DevanagariToUAST,
+			builderFuncs[or][hu],
+			builderFuncs[or][df],
+		},
+		"kn": []func(string) string{
+			builderFuncs[ta][sd],
+			DevanagariToUAST,
+			builderFuncs[kn][hu],
+			builderFuncs[kn][df],
+		},
+		"gu": []func(string) string{
+			builderFuncs[ta][sd],
+			DevanagariToUAST,
+			builderFuncs[gu][hu],
+			builderFuncs[gu][df],
+		},
+		"te": []func(string) string{
+			builderFuncs[ta][sd],
+			DevanagariToUAST,
+			builderFuncs[te][hu],
+			builderFuncs[te][df],
+		},
+		"ml": []func(string) string{
+			builderFuncs[ta][sd],
+			DevanagariToUAST,
+			builderFuncs[ml][hu],
+			builderFuncs[ml][df],
+		},
 	},
 	"ml": {
 		"devanagari": []func(string) string{
@@ -2472,6 +2622,36 @@ var Convertors = map[string](map[string]([]func(string) string)){
 			DevanagariToUAST,
 			builderFuncs[sa][hu],
 			DataToIAST,
+		},
+		"or": []func(string) string{
+			builderFuncs[ml][sd],
+			DevanagariToUAST,
+			builderFuncs[or][hu],
+			builderFuncs[or][df],
+		},
+		"kn": []func(string) string{
+			builderFuncs[ml][sd],
+			DevanagariToUAST,
+			builderFuncs[kn][hu],
+			builderFuncs[kn][df],
+		},
+		"ta": []func(string) string{
+			builderFuncs[ml][sd],
+			DevanagariToUAST,
+			builderFuncs[ta][hu],
+			builderFuncs[ta][df],
+		},
+		"te": []func(string) string{
+			builderFuncs[ml][sd],
+			DevanagariToUAST,
+			builderFuncs[te][hu],
+			builderFuncs[te][df],
+		},
+		"gu": []func(string) string{
+			builderFuncs[ml][sd],
+			DevanagariToUAST,
+			builderFuncs[gu][hu],
+			builderFuncs[gu][df],
 		},
 	},
 }
