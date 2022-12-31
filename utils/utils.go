@@ -908,7 +908,7 @@ var slpDataDict = charMap{
 }
 
 // Function to map special characters to Unicode
-func CreateHandleUnicode(lang langList) func(string) string {
+func createHandleUnicode(lang langList) func(string) string {
 	langDict := charMap{}
 
 	maps.Copy(langDict, unicodeMap)
@@ -1082,7 +1082,7 @@ func CreateHandleUnicode(lang langList) func(string) string {
 	}
 }
 
-func CreateScriptFunction(lang langList) func(string) string {
+func createScriptFunction(lang langList) func(string) string {
 	obj := charMap{}
 
 	switch lang {
@@ -1598,7 +1598,7 @@ func CreateScriptFunction(lang langList) func(string) string {
 	return func(s string) string {
 		var arr []string
 
-		for _, v := range s {
+		for _, v := range norm.NFC.String(s) {
 			l := string(v)
 
 			if k, ok := obj[l]; ok {
@@ -1619,7 +1619,7 @@ func CreateScriptFunction(lang langList) func(string) string {
 }
 
 // Convert parsed UAST string to IAST
-func DataToIAST(data string) string {
+func dataToIAST(data string) string {
 	data = string(
 		regexp.
 			MustCompile(`[\[\]{}^~@#$%&*_;\n\v\t\r\f]`).
@@ -1770,7 +1770,7 @@ func DataToIAST(data string) string {
 }
 
 // Convert IAST to UAST
-func IASTToUAST(data string) string {
+func iastToUAST(data string) string {
 	var str []string
 	for _, v := range string(
 		regexp.
@@ -1954,7 +1954,7 @@ func IASTToUAST(data string) string {
 }
 
 // Function to create the function of parser
-func CreateDataFunction(lang langList) func(string) string {
+func createDataFunction(lang langList) func(string) string {
 	var obj langMap
 
 	switch lang {
@@ -2071,7 +2071,7 @@ func CreateDataFunction(lang langList) func(string) string {
 }
 
 // Convert देवनागरी to UAST
-func DevanagariToUAST(data string) string {
+func devanagariToUAST(data string) string {
 	var str []string
 	for _, v := range norm.NFC.String(data) {
 		str = append(str, string(v))
@@ -2144,7 +2144,7 @@ func DevanagariToUAST(data string) string {
 }
 
 // Convert SLP1 to IAST
-func SLPToIAST(data string) string {
+func slpToIAST(data string) string {
 	var str []string
 	for _, v := range data {
 		if c, ok := slpDataDict[string(v)]; ok {
@@ -2176,9 +2176,9 @@ func makeBuilder() map[langList](map[funcList](func(string) string)) {
 		ta,
 	} {
 		m[v] = map[funcList]func(string) string{
-			df: CreateDataFunction(v),
-			hu: CreateHandleUnicode(v),
-			sd: CreateScriptFunction(v),
+			df: createDataFunction(v),
+			hu: createHandleUnicode(v),
+			sd: createScriptFunction(v),
 		}
 	}
 
@@ -2194,47 +2194,47 @@ var Convertors = map[string](map[string]([]func(string) string)){
 		},
 		"devanagari": []func(string) string{
 			builderFuncs[sa][hu],
-			IASTToUAST,
+			iastToUAST,
 			builderFuncs[sa][hu],
 			builderFuncs[sa][df],
 		},
 		"uast": []func(string) string{
 			builderFuncs[sa][hu],
-			IASTToUAST,
+			iastToUAST,
 		},
 		"gu": []func(string) string{
 			builderFuncs[gu][hu],
-			IASTToUAST,
+			iastToUAST,
 			builderFuncs[gu][hu],
 			builderFuncs[gu][df],
 		},
 		"or": []func(string) string{
 			builderFuncs[or][hu],
-			IASTToUAST,
+			iastToUAST,
 			builderFuncs[or][hu],
 			builderFuncs[or][df],
 		},
 		"kn": []func(string) string{
 			builderFuncs[kn][hu],
-			IASTToUAST,
+			iastToUAST,
 			builderFuncs[kn][hu],
 			builderFuncs[kn][df],
 		},
 		"ml": []func(string) string{
 			builderFuncs[ml][hu],
-			IASTToUAST,
+			iastToUAST,
 			builderFuncs[ml][hu],
 			builderFuncs[ml][df],
 		},
 		"ta": []func(string) string{
 			builderFuncs[ta][hu],
-			IASTToUAST,
+			iastToUAST,
 			builderFuncs[ta][hu],
 			builderFuncs[ta][df],
 		},
 		"te": []func(string) string{
 			builderFuncs[te][hu],
-			IASTToUAST,
+			iastToUAST,
 			builderFuncs[te][hu],
 			builderFuncs[te][df],
 		},
@@ -2246,7 +2246,7 @@ var Convertors = map[string](map[string]([]func(string) string)){
 		},
 		"iast": []func(string) string{
 			builderFuncs[sa][hu],
-			DataToIAST,
+			dataToIAST,
 		},
 		"gu": []func(string) string{
 			builderFuncs[gu][hu],
@@ -2275,131 +2275,131 @@ var Convertors = map[string](map[string]([]func(string) string)){
 	},
 	"devanagari": {
 		"uast": []func(string) string{
-			DevanagariToUAST,
+			devanagariToUAST,
 		},
 		"iast": []func(string) string{
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[sa][hu],
-			DataToIAST,
+			dataToIAST,
 		},
 		"gu": []func(string) string{
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[gu][hu],
 			builderFuncs[gu][df],
 		},
 		"or": []func(string) string{
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[or][hu],
 			builderFuncs[or][df],
 		},
 		"kn": []func(string) string{
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[kn][hu],
 			builderFuncs[kn][df],
 		},
 		"te": []func(string) string{
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[te][hu],
 			builderFuncs[te][df],
 		},
 		"ta": []func(string) string{
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[ta][hu],
 			builderFuncs[ta][df],
 		},
 		"ml": []func(string) string{
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[ml][hu],
 			builderFuncs[ml][df],
 		},
 	},
 	"slp": {
 		"iast": []func(string) string{
-			SLPToIAST,
+			slpToIAST,
 		},
 		"uast": []func(string) string{
-			SLPToIAST,
-			IASTToUAST,
+			slpToIAST,
+			iastToUAST,
 		},
 		"devanagari": []func(string) string{
-			SLPToIAST,
-			IASTToUAST,
+			slpToIAST,
+			iastToUAST,
 			builderFuncs[sa][hu],
 			builderFuncs[sa][df],
 		},
 		"gu": []func(string) string{
-			SLPToIAST,
-			IASTToUAST,
+			slpToIAST,
+			iastToUAST,
 			builderFuncs[gu][hu],
 			builderFuncs[gu][df],
 		},
 		"or": []func(string) string{
-			SLPToIAST,
-			IASTToUAST,
+			slpToIAST,
+			iastToUAST,
 			builderFuncs[or][hu],
 			builderFuncs[or][df],
 		},
 		"kn": []func(string) string{
-			SLPToIAST,
-			IASTToUAST,
+			slpToIAST,
+			iastToUAST,
 			builderFuncs[kn][hu],
 			builderFuncs[kn][df],
 		},
 		"ta": []func(string) string{
-			SLPToIAST,
-			IASTToUAST,
+			slpToIAST,
+			iastToUAST,
 			builderFuncs[ta][hu],
 			builderFuncs[ta][df],
 		},
 		"te": []func(string) string{
-			SLPToIAST,
-			IASTToUAST,
+			slpToIAST,
+			iastToUAST,
 			builderFuncs[te][hu],
 			builderFuncs[te][df],
 		},
 		"ml": []func(string) string{
-			SLPToIAST,
-			IASTToUAST,
+			slpToIAST,
+			iastToUAST,
 			builderFuncs[ml][hu],
 			builderFuncs[ml][df],
 		},
 	},
 	"iast": {
 		"uast": []func(string) string{
-			IASTToUAST,
+			iastToUAST,
 		},
 		"devanagari": []func(string) string{
-			IASTToUAST,
+			iastToUAST,
 			builderFuncs[sa][hu],
 			builderFuncs[sa][df],
 		},
 		"gu": []func(string) string{
-			IASTToUAST,
+			iastToUAST,
 			builderFuncs[gu][hu],
 			builderFuncs[gu][df],
 		},
 		"or": []func(string) string{
-			IASTToUAST,
+			iastToUAST,
 			builderFuncs[or][hu],
 			builderFuncs[or][df],
 		},
 		"kn": []func(string) string{
-			IASTToUAST,
+			iastToUAST,
 			builderFuncs[kn][hu],
 			builderFuncs[kn][df],
 		},
 		"ta": []func(string) string{
-			IASTToUAST,
+			iastToUAST,
 			builderFuncs[ta][hu],
 			builderFuncs[ta][df],
 		},
 		"te": []func(string) string{
-			IASTToUAST,
+			iastToUAST,
 			builderFuncs[gu][hu],
 			builderFuncs[gu][df],
 		},
 		"ml": []func(string) string{
-			IASTToUAST,
+			iastToUAST,
 			builderFuncs[ml][hu],
 			builderFuncs[ml][df],
 		},
@@ -2410,41 +2410,41 @@ var Convertors = map[string](map[string]([]func(string) string)){
 		},
 		"uast": []func(string) string{
 			builderFuncs[gu][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 		},
 		"iast": []func(string) string{
 			builderFuncs[gu][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[sa][hu],
-			DataToIAST,
+			dataToIAST,
 		},
 		"or": []func(string) string{
 			builderFuncs[gu][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[or][hu],
 			builderFuncs[or][df],
 		},
 		"kn": []func(string) string{
 			builderFuncs[gu][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[kn][hu],
 			builderFuncs[kn][df],
 		},
 		"ta": []func(string) string{
 			builderFuncs[gu][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[ta][hu],
 			builderFuncs[ta][df],
 		},
 		"te": []func(string) string{
 			builderFuncs[gu][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[te][hu],
 			builderFuncs[te][df],
 		},
 		"ml": []func(string) string{
 			builderFuncs[gu][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[ml][hu],
 			builderFuncs[ml][df],
 		},
@@ -2455,41 +2455,41 @@ var Convertors = map[string](map[string]([]func(string) string)){
 		},
 		"uast": []func(string) string{
 			builderFuncs[or][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 		},
 		"iast": []func(string) string{
 			builderFuncs[or][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[sa][hu],
-			DataToIAST,
+			dataToIAST,
 		},
 		"gu": []func(string) string{
 			builderFuncs[or][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[gu][hu],
 			builderFuncs[gu][df],
 		},
 		"kn": []func(string) string{
 			builderFuncs[or][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[kn][hu],
 			builderFuncs[kn][df],
 		},
 		"ta": []func(string) string{
 			builderFuncs[or][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[ta][hu],
 			builderFuncs[ta][df],
 		},
 		"te": []func(string) string{
 			builderFuncs[or][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[te][hu],
 			builderFuncs[te][df],
 		},
 		"ml": []func(string) string{
 			builderFuncs[or][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[ml][hu],
 			builderFuncs[ml][df],
 		},
@@ -2500,41 +2500,41 @@ var Convertors = map[string](map[string]([]func(string) string)){
 		},
 		"uast": []func(string) string{
 			builderFuncs[kn][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 		},
 		"iast": []func(string) string{
 			builderFuncs[kn][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[sa][hu],
-			DataToIAST,
+			dataToIAST,
 		},
 		"or": []func(string) string{
 			builderFuncs[kn][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[or][hu],
 			builderFuncs[or][df],
 		},
 		"gu": []func(string) string{
 			builderFuncs[kn][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[gu][hu],
 			builderFuncs[gu][df],
 		},
 		"ta": []func(string) string{
 			builderFuncs[kn][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[ta][hu],
 			builderFuncs[ta][df],
 		},
 		"te": []func(string) string{
 			builderFuncs[kn][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[te][hu],
 			builderFuncs[te][df],
 		},
 		"ml": []func(string) string{
 			builderFuncs[kn][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[ml][hu],
 			builderFuncs[ml][df],
 		},
@@ -2545,41 +2545,41 @@ var Convertors = map[string](map[string]([]func(string) string)){
 		},
 		"uast": []func(string) string{
 			builderFuncs[te][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 		},
 		"iast": []func(string) string{
 			builderFuncs[te][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[sa][hu],
-			DataToIAST,
+			dataToIAST,
 		},
 		"or": []func(string) string{
 			builderFuncs[te][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[or][hu],
 			builderFuncs[or][df],
 		},
 		"kn": []func(string) string{
 			builderFuncs[te][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[kn][hu],
 			builderFuncs[kn][df],
 		},
 		"ta": []func(string) string{
 			builderFuncs[te][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[ta][hu],
 			builderFuncs[ta][df],
 		},
 		"gu": []func(string) string{
 			builderFuncs[te][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[gu][hu],
 			builderFuncs[gu][df],
 		},
 		"ml": []func(string) string{
 			builderFuncs[te][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[ml][hu],
 			builderFuncs[ml][df],
 		},
@@ -2590,41 +2590,41 @@ var Convertors = map[string](map[string]([]func(string) string)){
 		},
 		"uast": []func(string) string{
 			builderFuncs[ta][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 		},
 		"iast": []func(string) string{
 			builderFuncs[ta][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[sa][hu],
-			DataToIAST,
+			dataToIAST,
 		},
 		"or": []func(string) string{
 			builderFuncs[ta][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[or][hu],
 			builderFuncs[or][df],
 		},
 		"kn": []func(string) string{
 			builderFuncs[ta][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[kn][hu],
 			builderFuncs[kn][df],
 		},
 		"gu": []func(string) string{
 			builderFuncs[ta][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[gu][hu],
 			builderFuncs[gu][df],
 		},
 		"te": []func(string) string{
 			builderFuncs[ta][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[te][hu],
 			builderFuncs[te][df],
 		},
 		"ml": []func(string) string{
 			builderFuncs[ta][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[ml][hu],
 			builderFuncs[ml][df],
 		},
@@ -2635,41 +2635,41 @@ var Convertors = map[string](map[string]([]func(string) string)){
 		},
 		"uast": []func(string) string{
 			builderFuncs[ml][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 		},
 		"iast": []func(string) string{
 			builderFuncs[ml][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[sa][hu],
-			DataToIAST,
+			dataToIAST,
 		},
 		"or": []func(string) string{
 			builderFuncs[ml][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[or][hu],
 			builderFuncs[or][df],
 		},
 		"kn": []func(string) string{
 			builderFuncs[ml][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[kn][hu],
 			builderFuncs[kn][df],
 		},
 		"ta": []func(string) string{
 			builderFuncs[ml][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[ta][hu],
 			builderFuncs[ta][df],
 		},
 		"te": []func(string) string{
 			builderFuncs[ml][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[te][hu],
 			builderFuncs[te][df],
 		},
 		"gu": []func(string) string{
 			builderFuncs[ml][sd],
-			DevanagariToUAST,
+			devanagariToUAST,
 			builderFuncs[gu][hu],
 			builderFuncs[gu][df],
 		},
