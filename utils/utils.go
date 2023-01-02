@@ -915,7 +915,8 @@ func createHandleUnicode(lang langList) func(string) string {
 
 	switch lang {
 	case gu:
-		maps.Copy(langDict,
+		maps.Copy(
+			langDict,
 			charMap{
 				"0":  "૦",
 				"1":  "૧",
@@ -932,7 +933,8 @@ func createHandleUnicode(lang langList) func(string) string {
 			},
 		)
 	case sa:
-		maps.Copy(langDict,
+		maps.Copy(
+			langDict,
 			charMap{
 				"0":  "०",
 				"1":  "१",
@@ -949,7 +951,8 @@ func createHandleUnicode(lang langList) func(string) string {
 			},
 		)
 	case or:
-		maps.Copy(langDict,
+		maps.Copy(
+			langDict,
 			charMap{
 				"0":  "୦",
 				"1":  "୧",
@@ -966,7 +969,8 @@ func createHandleUnicode(lang langList) func(string) string {
 			},
 		)
 	case kn:
-		maps.Copy(langDict,
+		maps.Copy(
+			langDict,
 			charMap{
 				"0":  "೦",
 				"1":  "೧",
@@ -983,7 +987,8 @@ func createHandleUnicode(lang langList) func(string) string {
 			},
 		)
 	case te:
-		maps.Copy(langDict,
+		maps.Copy(
+			langDict,
 			charMap{
 				"0":  "౦",
 				"1":  "౧",
@@ -1000,7 +1005,8 @@ func createHandleUnicode(lang langList) func(string) string {
 			},
 		)
 	case ml:
-		maps.Copy(langDict,
+		maps.Copy(
+			langDict,
 			charMap{
 				"0":  "൦",
 				"1":  "൧",
@@ -1017,7 +1023,8 @@ func createHandleUnicode(lang langList) func(string) string {
 			},
 		)
 	case ta:
-		maps.Copy(langDict,
+		maps.Copy(
+			langDict,
 			charMap{
 				"0":  "௦",
 				"1":  "௧",
@@ -1087,7 +1094,8 @@ func createScriptFunction(lang langList) func(string) string {
 
 	switch lang {
 	case gu:
-		maps.Copy(obj,
+		maps.Copy(
+			obj,
 			charMap{
 				"।": "।",
 				"॥": "॥",
@@ -1171,7 +1179,8 @@ func createScriptFunction(lang langList) func(string) string {
 			},
 		)
 	case or:
-		maps.Copy(obj,
+		maps.Copy(
+			obj,
 			charMap{
 				"।":  "।",
 				"॥":  "॥",
@@ -1255,7 +1264,8 @@ func createScriptFunction(lang langList) func(string) string {
 			},
 		)
 	case "kn":
-		maps.Copy(obj,
+		maps.Copy(
+			obj,
 			charMap{
 				"।":  "।",
 				"॥":  "॥",
@@ -1339,7 +1349,8 @@ func createScriptFunction(lang langList) func(string) string {
 			},
 		)
 	case te:
-		maps.Copy(obj,
+		maps.Copy(
+			obj,
 			charMap{
 				"।":  "।",
 				"॥":  "॥",
@@ -1423,7 +1434,8 @@ func createScriptFunction(lang langList) func(string) string {
 			},
 		)
 	case ml:
-		maps.Copy(obj,
+		maps.Copy(
+			obj,
 			charMap{
 				"।":  "।",
 				"॥":  "॥",
@@ -1507,7 +1519,8 @@ func createScriptFunction(lang langList) func(string) string {
 			},
 		)
 	case ta:
-		maps.Copy(obj,
+		maps.Copy(
+			obj,
 			charMap{
 				"।": "।",
 				"॥": "॥",
