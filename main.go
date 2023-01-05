@@ -94,6 +94,7 @@ func main() {
 
 	input := flag.String("i", "", "Input file")
 	output := flag.String("o", "", "Output file")
+	ver := flag.Bool("v", false, "version")
 
 	flag.Parse()
 
@@ -101,6 +102,15 @@ func main() {
 		bufio.NewReader(os.Stdin),
 		bufio.NewWriter(os.Stdout),
 	)
+
+	if *ver {
+		writeBuf(buf, "For web version, visit `https://uast.dev`\n\n")
+		writeBuf(buf, CITE)
+		writeBuf(buf, LICENSE)
+		flushBuf(buf)
+
+		return
+	}
 
 	switch *from {
 	case
@@ -117,7 +127,7 @@ func main() {
 		KANNADA:
 		writeBuf(buf, "`from`: "+*from+"\n")
 	default:
-		log.Printf("bad `from` value: %v: expected %v", *from, from_schemes)
+		log.Fatalf("bad `from` value: %v: expected %v", *from, from_schemes)
 	}
 
 	switch *to {
@@ -133,7 +143,7 @@ func main() {
 		ODIA:
 		writeBuf(buf, "`to`: "+*to+"\n")
 	default:
-		log.Printf("bad `to` value: %v: expected %v", *to, to_schemes)
+		log.Fatalf("bad `to` value: %v: expected %v", *to, to_schemes)
 	}
 
 	if *input != "" && *output != "" {
@@ -170,18 +180,9 @@ func main() {
 		log.Fatalf("Either of `-i` or `-o` was missing")
 	}
 
-	var idx int
+	flushBuf(buf)
+
 	for {
-		writeBuf(
-			buf,
-			fmt.Sprintf(
-				"\n\033[32mIn [\033[00m\033[01;32m%v\033[00m\033[32m]:\033[00m ",
-				idx,
-			),
-		)
-
-		flushBuf(buf)
-
 		if s, err := buf.ReadString('\n'); err != nil {
 			if !errors.Is(err, io.EOF) {
 				log.Fatal(err)
@@ -193,98 +194,6 @@ func main() {
 		} else {
 			var arr []string
 			l := strings.Split(strings.TrimSpace(s), " ")
-
-			if (len(l) == 2 || len(l) == 1) && strings.HasPrefix(l[0], "!") {
-				switch l[0][1:] {
-				case "from":
-					{
-						if len(l) == 1 {
-							l = append(l, *from)
-						}
-
-						switch l[1] {
-						case
-							UAST,
-							RAW,
-							DEVANAGARI,
-							IAST,
-							SLP1,
-							GUJARATI,
-							ODIA,
-							TAMIL,
-							TELUGU,
-							MALAYALAM,
-							KANNADA:
-							*from = l[1]
-						default:
-							log.Printf("bad `from` value: %v: expected %v", *from, from_schemes)
-						}
-
-						writeBuf(buf, "`from`: "+*from+"\n")
-						writeBuf(buf, "`to`: "+*to+"\n")
-						flushBuf(buf)
-					}
-				case "to":
-					{
-						if len(l) == 1 {
-							l = append(l, *to)
-						}
-
-						switch l[1] {
-						case
-							UAST,
-							DEVANAGARI,
-							IAST,
-							GUJARATI,
-							TAMIL,
-							MALAYALAM,
-							KANNADA,
-							TELUGU,
-							ODIA:
-							*to = l[1]
-						default:
-							log.Printf("bad `to` value: %v: expected %v", *to, to_schemes)
-						}
-
-						writeBuf(buf, "`from`: "+*from+"\n")
-						writeBuf(buf, "`to`: "+*to+"\n")
-						flushBuf(buf)
-					}
-				case "licence", "license":
-					{
-						writeBuf(buf, LICENSE)
-						flushBuf(buf)
-					}
-				case "config":
-					{
-						writeBuf(buf, "`from`: "+*from+"\n")
-						writeBuf(buf, "`to`: "+*to+"\n")
-						flushBuf(buf)
-					}
-				case "citation":
-					{
-						writeBuf(buf, CITE)
-						flushBuf(buf)
-					}
-				case "help":
-					{
-						log.Printf(
-							"Available commands: %v",
-							[]string{"from", "to", "license", "config", "help", "citation"},
-						)
-					}
-				default:
-					{
-						log.Printf(
-							"bad config value: %v: expected %v",
-							l[0],
-							[]string{"from", "to", "license", "config", "help", "citation"},
-						)
-					}
-				}
-
-				continue
-			}
 
 			for _, v := range l {
 				if k, ok := utils.Convertors[*from][*to]; ok {
@@ -298,13 +207,12 @@ func main() {
 			writeBuf(
 				buf,
 				fmt.Sprintf(
-					"\033[31mOut[\033[00m\033[01;31m%v\033[00m\033[31m]:\033[00m %v\n",
-					idx, strings.Join(arr, " "),
+					"%v\n",
+					strings.Join(arr, " "),
 				),
 			)
 
 			flushBuf(buf)
-			idx++
 		}
 	}
 }
