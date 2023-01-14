@@ -1635,7 +1635,7 @@ func createScriptFunction(lang langList) func(string) string {
 func dataToIAST(data string) string {
 	data = string(
 		regexp.
-			MustCompile(`[\[\]{}^~@#$%&*_;\n\v\t\r\f]`).
+			MustCompile(`[\[\]{}^~@#$%&*_;.<>\n\v\t\r\f]`).
 			ReplaceAll([]byte(norm.NFC.String(data)), []byte("")),
 	)
 
@@ -1787,7 +1787,7 @@ func iastToUAST(data string) string {
 	var str []string
 	for _, v := range string(
 		regexp.
-			MustCompile(`[\[\]{}^~@#$%&*\-_;]`).
+			MustCompile(`[\[\]{}^~@#$%&*\-_;<>]`).
 			ReplaceAll([]byte(norm.NFC.String(data)), []byte("")),
 	) {
 		str = append(str, string(v))
