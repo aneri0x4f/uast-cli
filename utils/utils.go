@@ -2176,8 +2176,10 @@ const (
 	sd funcList = "scriptToDevanagari"
 )
 
-func makeBuilder() map[langList](map[funcList](func(string) string)) {
-	m := make(map[langList](map[funcList](func(string) string)))
+type builder = map[langList](map[funcList](func(string) string))
+
+var builderFuncs = func() builder {
+	m := make(builder)
 
 	for _, v := range []langList{
 		gu,
@@ -2196,9 +2198,7 @@ func makeBuilder() map[langList](map[funcList](func(string) string)) {
 	}
 
 	return m
-}
-
-var builderFuncs = makeBuilder()
+}()
 
 var Convertors = map[string](map[string]([]func(string) string)){
 	"raw": {
