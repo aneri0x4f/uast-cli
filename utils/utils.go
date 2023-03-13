@@ -845,6 +845,7 @@ var allowedSymbols = []string{
 	"(",
 	")",
 	"=",
+	"|",
 }
 
 var slpDataDict = charMap{
