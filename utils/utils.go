@@ -1893,10 +1893,7 @@ func iastToUAST(data string) string {
 	for k := 0; k < len(arr); k++ {
 		curr := arr[k]
 
-		var hasDash bool
-		if strings.Contains(curr, "-") {
-			hasDash = true
-		}
+		hasDash := strings.Contains(curr, "-")
 
 		curr = strings.ReplaceAll(curr, "\\", "")
 		curr = strings.ReplaceAll(curr, "-", "")
