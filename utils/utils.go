@@ -1962,26 +1962,7 @@ func iastToUAST(data string) string {
 
 // Function to create the function of parser
 func createDataFunction(lang langList) func(string) string {
-	var obj langMap
-
-	switch lang {
-	case sa:
-		obj = charDict[sa]
-	case gu:
-		obj = charDict[gu]
-	case ta:
-		obj = charDict[ta]
-	case ml:
-		obj = charDict[ml]
-	case or:
-		obj = charDict[or]
-	case kn:
-		obj = charDict[kn]
-	case te:
-		obj = charDict[te]
-	default:
-		panic("Unhandled case")
-	}
+	obj := charDict[lang]
 
 	return func(data string) string {
 		var ans []string
