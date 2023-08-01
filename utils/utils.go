@@ -88,7 +88,7 @@ var charDict = map[langList]langMap{
 			"ṃ":  "ં",
 			"ḥ":  "ઃ",
 			"ã":  "ઁ",
-			"-":  "्",
+			"-":  "્",
 		},
 		consonants: charMap{
 			"k":  "ક",
