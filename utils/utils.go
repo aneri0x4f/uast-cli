@@ -10,11 +10,11 @@
 package utils
 
 import (
+	"maps"
 	"regexp"
+	"slices"
 	"strings"
 
-	"golang.org/x/exp/maps"
-	"golang.org/x/exp/slices"
 	"golang.org/x/text/unicode/norm"
 )
 
