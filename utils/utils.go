@@ -904,6 +904,89 @@ var slpDataDict = charMap{
 	"~": "ã",
 }
 
+var iastAllowed = []string{
+	"।",
+	"॥",
+	"ऽ",
+	"ॐ",
+	"०",
+	"१",
+	"२",
+	"३",
+	"४",
+	"५",
+	"६",
+	"७",
+	"८",
+	"९",
+	"a",
+	"ā",
+	"i",
+	"ī",
+	"u",
+	"ū",
+	"ṛ",
+	"ṝ",
+	"ḷ",
+	"ḹ",
+	"e",
+	"ai",
+	"o",
+	"au",
+	"a",
+	"ā",
+	"i",
+	"ī",
+	"u",
+	"ū",
+	"ṛ",
+	"ṝ",
+	"ḷ",
+	"ḹ",
+	"e",
+	"ai",
+	"o",
+	"au",
+	"ṃ",
+	"ḥ",
+	"ã",
+	"-",
+	"k",
+	"kh",
+	"g",
+	"gh",
+	"ṅ",
+	"c",
+	"ch",
+	"j",
+	"jh",
+	"ñ",
+	"ṭ",
+	"ṭh",
+	"ḍ",
+	"ḍh",
+	"ṇ",
+	"t",
+	"th",
+	"d",
+	"dh",
+	"n",
+	"p",
+	"ph",
+	"b",
+	"bh",
+	"m",
+	"y",
+	"r",
+	"l",
+	"v",
+	"ś",
+	"ṣ",
+	"s",
+	"h",
+	"ḻ",
+}
+
 // Function to map special characters to Unicode
 func createHandleUnicode(lang langList) func(string) string {
 	langDict := charMap{}
@@ -1765,6 +1848,11 @@ func dataToIAST(data string) string {
 
 			if curr == "ḥ" || curr == "ṃ" || curr == "ã" {
 				arr = append(arr, curr)
+				i++
+				continue
+			}
+
+			if !slices.Contains(iastAllowed, curr) {
 				i++
 				continue
 			}
