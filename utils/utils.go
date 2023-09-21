@@ -933,20 +933,6 @@ var iastAllowed = []string{
 	"ai",
 	"o",
 	"au",
-	"a",
-	"ā",
-	"i",
-	"ī",
-	"u",
-	"ū",
-	"ṛ",
-	"ṝ",
-	"ḷ",
-	"ḹ",
-	"e",
-	"ai",
-	"o",
-	"au",
 	"ṃ",
 	"ḥ",
 	"ã",
@@ -1797,11 +1783,10 @@ func dataToIAST(data string) string {
 			if i == len(str)-1 {
 				if curr == "ḥ" || curr == "ṃ" || curr == "ã" {
 					arr = append(arr, curr)
-					i++
-					continue
+				} else {
+					arr = append(arr, curr+"a")
 				}
 
-				arr = append(arr, curr+"a")
 				i++
 				continue
 			}
