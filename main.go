@@ -47,13 +47,13 @@ func main() {
 		ODIA       string = "or"
 		TELUGU     string = "te"
 		MALAYALAM  string = "ml"
-		DEVANAGARI string = "devanagari"
+		DEVANĀGARĪ string = "devanāgarī"
 	)
 
 	from_schemes := []string{
 		UAST,
 		RAW,
-		DEVANAGARI,
+		DEVANĀGARĪ,
 		IAST,
 		SLP1,
 		GUJARATI,
@@ -65,7 +65,7 @@ func main() {
 	}
 	to_schemes := []string{
 		UAST,
-		DEVANAGARI,
+		DEVANĀGARĪ,
 		IAST,
 		GUJARATI,
 		TAMIL,
@@ -85,7 +85,7 @@ func main() {
 	)
 	to := flag.String(
 		"to",
-		DEVANAGARI,
+		DEVANĀGARĪ,
 		fmt.Sprintf(
 			"to schema (%v)",
 			to_schemes,
@@ -116,7 +116,7 @@ func main() {
 	case
 		UAST,
 		RAW,
-		DEVANAGARI,
+		DEVANĀGARĪ,
 		IAST,
 		SLP1,
 		GUJARATI,
@@ -133,7 +133,7 @@ func main() {
 	switch *to {
 	case
 		UAST,
-		DEVANAGARI,
+		DEVANĀGARĪ,
 		IAST,
 		GUJARATI,
 		TAMIL,

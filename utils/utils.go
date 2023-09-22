@@ -704,7 +704,7 @@ var unicodeMap = charMap{
 	"au": "ã",
 }
 
-var devanagariDataDict = charMap{
+var devanāgarīDataDict = charMap{
 	"क": "k",
 	"ख": "kh",
 	"ग": "g",
@@ -2159,14 +2159,14 @@ func devanāgarīToUAST(data string) string {
 		}
 
 		var val string
-		if v, ok := devanagariDataDict[curr]; ok {
+		if v, ok := devanāgarīDataDict[curr]; ok {
 			val = v
 		} else {
 			val = curr
 		}
 
 		var nextVal string
-		if v, ok := devanagariDataDict[next]; ok {
+		if v, ok := devanāgarīDataDict[next]; ok {
 			nextVal = v
 		} else {
 			nextVal = next
@@ -2221,7 +2221,7 @@ type funcList string
 const (
 	hu funcList = "handleUnicode"
 	df funcList = "dataFunction"
-	sd funcList = "scriptToDevanagari"
+	sd funcList = "scriptTodevanāgarī"
 )
 
 type builder = map[langList](map[funcList](func(string) string))
@@ -2253,7 +2253,7 @@ var Convertors = map[string](map[string]([]func(string) string)){
 		"iast": []func(string) string{
 			builderFuncs[sa][hu],
 		},
-		"devanagari": []func(string) string{
+		"devanāgarī": []func(string) string{
 			builderFuncs[sa][hu],
 			iastToUAST,
 			builderFuncs[sa][hu],
@@ -2301,7 +2301,7 @@ var Convertors = map[string](map[string]([]func(string) string)){
 		},
 	},
 	"uast": {
-		"devanagari": []func(string) string{
+		"devanāgarī": []func(string) string{
 			builderFuncs[sa][hu],
 			builderFuncs[sa][df],
 		},
@@ -2334,7 +2334,7 @@ var Convertors = map[string](map[string]([]func(string) string)){
 			builderFuncs[ml][df],
 		},
 	},
-	"devanagari": {
+	"devanāgarī": {
 		"uast": []func(string) string{
 			devanāgarīToUAST,
 		},
@@ -2382,7 +2382,7 @@ var Convertors = map[string](map[string]([]func(string) string)){
 			slpToIAST,
 			iastToUAST,
 		},
-		"devanagari": []func(string) string{
+		"devanāgarī": []func(string) string{
 			slpToIAST,
 			iastToUAST,
 			builderFuncs[sa][hu],
@@ -2429,7 +2429,7 @@ var Convertors = map[string](map[string]([]func(string) string)){
 		"uast": []func(string) string{
 			iastToUAST,
 		},
-		"devanagari": []func(string) string{
+		"devanāgarī": []func(string) string{
 			iastToUAST,
 			builderFuncs[sa][hu],
 			builderFuncs[sa][df],
@@ -2466,7 +2466,7 @@ var Convertors = map[string](map[string]([]func(string) string)){
 		},
 	},
 	"gu": {
-		"devanagari": []func(string) string{
+		"devanāgarī": []func(string) string{
 			builderFuncs[gu][sd],
 		},
 		"uast": []func(string) string{
@@ -2511,7 +2511,7 @@ var Convertors = map[string](map[string]([]func(string) string)){
 		},
 	},
 	"or": {
-		"devanagari": []func(string) string{
+		"devanāgarī": []func(string) string{
 			builderFuncs[or][sd],
 		},
 		"uast": []func(string) string{
@@ -2556,7 +2556,7 @@ var Convertors = map[string](map[string]([]func(string) string)){
 		},
 	},
 	"kn": {
-		"devanagari": []func(string) string{
+		"devanāgarī": []func(string) string{
 			builderFuncs[kn][sd],
 		},
 		"uast": []func(string) string{
@@ -2601,7 +2601,7 @@ var Convertors = map[string](map[string]([]func(string) string)){
 		},
 	},
 	"te": {
-		"devanagari": []func(string) string{
+		"devanāgarī": []func(string) string{
 			builderFuncs[te][sd],
 		},
 		"uast": []func(string) string{
@@ -2646,7 +2646,7 @@ var Convertors = map[string](map[string]([]func(string) string)){
 		},
 	},
 	"ta": {
-		"devanagari": []func(string) string{
+		"devanāgarī": []func(string) string{
 			builderFuncs[ta][sd],
 		},
 		"uast": []func(string) string{
@@ -2691,7 +2691,7 @@ var Convertors = map[string](map[string]([]func(string) string)){
 		},
 	},
 	"ml": {
-		"devanagari": []func(string) string{
+		"devanāgarī": []func(string) string{
 			builderFuncs[ml][sd],
 		},
 		"uast": []func(string) string{
