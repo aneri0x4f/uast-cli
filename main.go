@@ -14,7 +14,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/aneri0x4f/uast/utils"
+	"github.com/aneri0x4f/uast-cli/utils"
 )
 
 //go:embed LICENSE
