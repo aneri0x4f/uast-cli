@@ -98,6 +98,13 @@ func main() {
 
 	flag.Parse()
 
+	if *from == "devanagari" {
+		*from = DEVANĀGARĪ
+	}
+	if *to == "devanagari" {
+		*to = DEVANĀGARĪ
+	}
+
 	buf := bufio.NewReadWriter(
 		bufio.NewReader(os.Stdin),
 		bufio.NewWriter(os.Stdout),
