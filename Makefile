@@ -6,7 +6,7 @@ CFLAGS = -ldflags "-w -s" -x
 GOPATH = $(shell go env GOPATH)
 
 all:
-	go build -v -o $(BIN) $(CFLAGS) .
+	go build -v -o $(BIN) $(CFLAGS) ./cmd/uast
 
 format:
 	gofmt -s -w **/*.go
@@ -19,7 +19,7 @@ clean:
 	rm -rfv $(BIN) $(GOPATH)/bin/uast
 
 upgrade:
-	go get -u -v
+	go get -u -v ./...
 	go mod tidy
 
 test:

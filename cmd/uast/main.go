@@ -14,14 +14,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/aneri0x4f/uast-cli/utils"
+	"github.com/aneri0x4f/uast-cli/internal/utils"
 )
-
-//go:embed LICENSE
-var LICENSE string
-
-//go:embed CITATIONS.md
-var CITE string
 
 func writeBuf(buf *bufio.ReadWriter, s string) {
 	if _, err := buf.WriteString(s); err != nil {
@@ -112,8 +106,7 @@ func main() {
 
 	if *ver {
 		writeBuf(buf, "For web version, visit `https://uast.dev`\n\n")
-		writeBuf(buf, CITE)
-		writeBuf(buf, LICENSE)
+		writeBuf(buf, "For citations, visit `https://arxiv.org/abs/2203.14277`\n\n")
 		flushBuf(buf)
 
 		return
