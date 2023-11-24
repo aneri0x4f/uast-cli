@@ -8,7 +8,7 @@ To install this program, you will need to install [Go](https://go.dev/)
 After that, simply run:
 
 ```bash
-make install
+go install https://github.com/aneri0x4f/uast-cli/cmd/uast@latest
 ```
 
 To remove,

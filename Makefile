@@ -4,15 +4,16 @@
 BIN = bin/uast
 CFLAGS = -ldflags "-w -s" -x
 GOPATH = $(shell go env GOPATH)
+PKG = ./cmd/uast
 
 all:
-	go build -v -o $(BIN) $(CFLAGS) ./cmd/uast
+	go build -v -o $(BIN) $(CFLAGS) $(PKG)
 
 format:
 	gofmt -s -w **/*.go
 
-install: upgrade all
-	cp $(BIN) $(GOPATH)/bin
+install: upgrade
+	go install $(PKG)
 
 clean:
 	go clean -i -n
