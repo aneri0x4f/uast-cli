@@ -23,13 +23,6 @@ To build in current directory,
 make
 ```
 
-To run in [Docker](https://www.docker.com/) container,
-
-```bash
-make docker
-docker run -it --rm uast
-```
-
 ```
 Usage of uast:
   -from string
