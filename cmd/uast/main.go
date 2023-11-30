@@ -5,7 +5,6 @@ package main
 
 import (
 	"bufio"
-	_ "embed"
 	"errors"
 	"flag"
 	"fmt"
