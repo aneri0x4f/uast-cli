@@ -1,5 +1,7 @@
 # UAST: Unicode Aware Sanskrit Transliteration
 
+[![Go Reference](https://pkg.go.dev/badge/github.com/aneri0x4f/uast-cli.svg)](https://pkg.go.dev/github.com/aneri0x4f/uast-cli)
+
 A tool for transliterating and typing Sanskrit in the easiest
 computer, language, and human-friendly way
 
