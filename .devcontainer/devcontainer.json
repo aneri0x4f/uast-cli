@@ -1,0 +1,9 @@
+{
+  "name": "uast-cli",
+  "image": "mcr.microsoft.com/devcontainers/go",
+  "customizations": {
+    "vscode": {
+      "extensions": ["golang.go", "ms-vscode.makefile-tools"]
+    }
+  }
+}
