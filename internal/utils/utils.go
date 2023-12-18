@@ -46,7 +46,7 @@ var charDict = map[langList]langMap{
 			"।": ".",
 			"॥": "..",
 			"ऽ": "'",
-			"ॐ": "om",
+			"ૐ": "om",
 		},
 		numbers: charMap{
 			"૦": "0",
@@ -994,7 +994,7 @@ func createHandleUnicode(lang langList) func(string) string {
 				"7":  "૭",
 				"8":  "૮",
 				"9":  "૯",
-				"om": "ॐ",
+				"om": "ૐ",
 				"'":  "ઽ",
 			},
 		)
@@ -1166,7 +1166,7 @@ func createScriptFunction(lang langList) func(string) string {
 				"।": "।",
 				"॥": "॥",
 				"ઽ": "ऽ",
-				"ॐ": "ओम्",
+				"ૐ": "ओम्",
 				"૦": "०",
 				"૧": "१",
 				"૨": "२",
