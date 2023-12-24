@@ -1,23 +1,22 @@
 .DEFAULT_GOAL := all
 .PHONY: all format install clean upgrade test
 
-BIN = bin/
+BIN = bin
 CFLAGS = -ldflags "-w -s" -x
-GOPATH = $(shell go env GOPATH)
 PKG = ./cmd/uast
 
 all:
-	go build -v -o $(BIN) $(CFLAGS) $(PKG)
+	go build -v -o $(BIN)/ $(CFLAGS) $(PKG)
 
 format:
-	gofmt -s -w **/*.go
+	gofmt -s -w $(shell find . -name "*.go")
 
 install: upgrade
 	go install -v $(PKG)
 
 clean:
-	go clean -i -n
-	rm -rfv $(BIN) $(GOPATH)/bin/uast
+	go clean -i -x $(PKG)
+	rm -rfv $(BIN)
 
 upgrade:
 	go get -u -v ./...
