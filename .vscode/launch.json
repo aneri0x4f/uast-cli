@@ -11,6 +11,7 @@
       "mode": "auto",
       "console": "integratedTerminal",
       "program": "${workspaceFolder}/cmd/uast",
+      "cwd": "${workspaceFolder}",
       "args": ["-to", "iast"]
     }
   ]
