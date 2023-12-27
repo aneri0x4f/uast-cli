@@ -32,7 +32,7 @@ func main() {
 	const (
 		UAST       string = "uast"
 		IAST       string = "iast"
-		RAW        string = "raw"
+		UAST_IO    string = "uast-io"
 		SLP1       string = "slp"
 		GUJARATI   string = "gu"
 		TAMIL      string = "ta"
@@ -45,7 +45,7 @@ func main() {
 
 	from_schemes := []string{
 		UAST,
-		RAW,
+		UAST_IO,
 		DEVANĀGARĪ,
 		IAST,
 		SLP1,
@@ -70,7 +70,7 @@ func main() {
 
 	from := flag.String(
 		"from",
-		UAST,
+		UAST_IO,
 		fmt.Sprintf(
 			"from schema (%v)",
 			from_schemes,
@@ -114,7 +114,7 @@ func main() {
 	switch *from {
 	case
 		UAST,
-		RAW,
+		UAST_IO,
 		DEVANĀGARĪ,
 		IAST,
 		SLP1,
