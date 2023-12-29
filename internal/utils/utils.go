@@ -1899,16 +1899,6 @@ func iastToUAST(data string) string {
 		for _, j := range []string{
 			".",
 			"'",
-			"0",
-			"1",
-			"2",
-			"3",
-			"4",
-			"5",
-			"6",
-			"7",
-			"8",
-			"9",
 		} {
 			if curr == "." && (k+1 < len(arr) && arr[k+1] == ".") {
 				curr = strings.ReplaceAll(curr, curr, "\\/../\\")
@@ -1917,6 +1907,11 @@ func iastToUAST(data string) string {
 			}
 
 			curr = strings.ReplaceAll(curr, j, "\\/"+j+"/\\")
+		}
+
+		for j := '0'; j <= '9'; j++ {
+			x := string(j)
+			curr = strings.ReplaceAll(curr, x, "\\"+x+"\\")
 		}
 
 		val := curr
