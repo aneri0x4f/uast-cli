@@ -1615,10 +1615,10 @@ func createScriptFunction(lang langList) func(string) string {
 				continue
 			}
 
-			if slices.Contains(
+			if _, ok := slices.BinarySearch(
 				allowedSymbols,
 				l,
-			) {
+			); ok {
 				arr = append(arr, l)
 			}
 		}
@@ -1674,10 +1674,10 @@ func dataToIAST(data string) string {
 				continue
 			}
 
-			if slices.Contains(
+			if _, ok := slices.BinarySearch(
 				allowedSymbols,
 				curr,
-			) {
+			); ok {
 				arr = append(arr, curr)
 				i++
 				continue
@@ -1716,7 +1716,7 @@ func dataToIAST(data string) string {
 				continue
 			}
 
-			if slices.Contains(unAspiratedConsonants, curr) && next == "h" {
+			if _, ok := slices.BinarySearch(unAspiratedConsonants, curr); ok && next == "h" {
 				var last string
 				if i+2 < len(str) {
 					last = str[i+2]
@@ -1762,7 +1762,7 @@ func dataToIAST(data string) string {
 				continue
 			}
 
-			if !slices.Contains(iastAllowed, curr) {
+			if _, ok := slices.BinarySearch(iastAllowed, curr); !ok {
 				i++
 				continue
 			}
@@ -1799,7 +1799,7 @@ func iastToUAST(data string) string {
 		}
 
 		if _, ok := charDict[sa].consonants[curr]; ok {
-			if slices.Contains(unAspiratedConsonants, curr) {
+			if _, ok := slices.BinarySearch(unAspiratedConsonants, curr); ok {
 				if next == "a" && (i+2 < len(str) && str[i+2] == "h") {
 					arr = append(arr, curr+"\\")
 					i += 2
@@ -1915,7 +1915,7 @@ func iastToUAST(data string) string {
 
 		val := curr
 
-		if slices.Contains(unAspiratedConsonants, curr) &&
+		if _, ok := slices.BinarySearch(unAspiratedConsonants, curr); ok &&
 			k+1 < len(arr) && arr[k+1] == "h" {
 			val += "a"
 		}
@@ -1998,16 +1998,16 @@ func createDataFunction(lang langList) func(string) string {
 					}
 				}
 
-				if slices.Contains(
-					[]string{",", "?", "!", "\"", ":", "(", ")", "="},
+				if _, ok := slices.BinarySearch(
+					[]string{"!", "\"", "(", ")", ",", ":", "=", "?"},
 					curr,
-				) {
+				); ok {
 					arr = append(arr, curr)
 					i++
 					continue
 				}
 
-				if slices.Contains(unAspiratedConsonants, curr) {
+				if _, ok := slices.BinarySearch(unAspiratedConsonants, curr); ok {
 					var consonant string
 					if i+1 < len(str) && str[i+1] == "h" {
 						consonant = strings.Join(str[i:i+2], "")
@@ -2112,7 +2112,7 @@ func devanāgarīToUAST(data string) string {
 			continue
 		}
 
-		if slices.Contains(unAspiratedConsonants, val) && nextVal == "h" {
+		if _, ok := slices.BinarySearch(unAspiratedConsonants, val); ok && nextVal == "h" {
 			arr = append(arr, val+"a")
 			continue
 		}
