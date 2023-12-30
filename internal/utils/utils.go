@@ -1909,9 +1909,8 @@ func iastToUAST(data string) string {
 			curr = strings.ReplaceAll(curr, j, "\\/"+j+"/\\")
 		}
 
-		for j := '0'; j <= '9'; j++ {
-			x := string(j)
-			curr = strings.ReplaceAll(curr, x, "\\"+x+"\\")
+		for j := range charDict[sa].numbers {
+			curr = strings.ReplaceAll(curr, j, "\\"+j+"\\")
 		}
 
 		val := curr
