@@ -12,7 +12,7 @@ format:
 	gofmt -s -w $(shell find . -name "*.go")
 
 install: upgrade
-	go install -v $(PKG)
+	go install $(CFLAGS) -v $(PKG)
 
 clean:
 	go clean -i -x $(PKG)
