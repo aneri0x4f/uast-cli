@@ -11,6 +11,7 @@ import (
 	"io"
 	"log"
 	"os"
+	"runtime/debug"
 	"strings"
 
 	"github.com/aneri0x4f/uast-cli/internal/utils"
@@ -104,8 +105,19 @@ func main() {
 	)
 
 	if *ver {
-		writeBuf(buf, "For web version, visit `https://uast.dev`\n\n")
-		writeBuf(buf, "For citations, visit `https://arxiv.org/abs/2203.14277`\n\n")
+		var commit string
+		if info, ok := debug.ReadBuildInfo(); ok {
+			for _, v := range info.Settings {
+				if v.Key == "vcs.revision" {
+					commit = v.Value
+				}
+			}
+		}
+		if commit != "" {
+			writeBuf(buf, "git commit hash: `"+commit+"`\n")
+		}
+		writeBuf(buf, "For web version, visit `https://uast.dev`\n")
+		writeBuf(buf, "For citations, visit `https://arxiv.org/abs/2203.14277`\n")
 		flushBuf(buf)
 
 		return
