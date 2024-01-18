@@ -211,7 +211,7 @@ func main() {
 		}
 
 		var arr []string
-		l := strings.Split(strings.TrimSpace(s), " ")
+		l := strings.Split(norm.NFC.String(strings.TrimSpace(s)), " ")
 
 		for _, v := range l {
 			if k, ok := utils.Convertors[*from][*to]; ok {
@@ -219,7 +219,7 @@ func main() {
 					v = f(v)
 				}
 			}
-			arr = append(arr, v)
+			arr = append(arr, norm.NFC.String(v))
 		}
 
 		writeBuf(
