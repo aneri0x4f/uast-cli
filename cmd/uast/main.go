@@ -198,7 +198,8 @@ func main() {
 	flushBuf(buf)
 
 	for {
-		if s, err := buf.ReadString('\n'); err != nil {
+		s, err := buf.ReadString('\n')
+		if err != nil {
 			if !errors.Is(err, io.EOF) {
 				log.Fatal(err)
 			}
@@ -206,28 +207,28 @@ func main() {
 			writeBuf(buf, "\n")
 			flushBuf(buf)
 			return
-		} else {
-			var arr []string
-			l := strings.Split(strings.TrimSpace(s), " ")
-
-			for _, v := range l {
-				if k, ok := utils.Convertors[*from][*to]; ok {
-					for _, f := range k {
-						v = f(v)
-					}
-				}
-				arr = append(arr, v)
-			}
-
-			writeBuf(
-				buf,
-				fmt.Sprintf(
-					"%v\n",
-					strings.Join(arr, " "),
-				),
-			)
-
-			flushBuf(buf)
 		}
+
+		var arr []string
+		l := strings.Split(strings.TrimSpace(s), " ")
+
+		for _, v := range l {
+			if k, ok := utils.Convertors[*from][*to]; ok {
+				for _, f := range k {
+					v = f(v)
+				}
+			}
+			arr = append(arr, v)
+		}
+
+		writeBuf(
+			buf,
+			fmt.Sprintf(
+				"%v\n",
+				strings.Join(arr, " "),
+			),
+		)
+
+		flushBuf(buf)
 	}
 }
