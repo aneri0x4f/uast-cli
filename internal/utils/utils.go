@@ -14,8 +14,6 @@ import (
 	"regexp"
 	"slices"
 	"strings"
-
-	"golang.org/x/text/unicode/norm"
 )
 
 type charMap = map[string]string
@@ -1081,7 +1079,7 @@ func createHandleUnicode(lang langList) func(string) string {
 			i++
 		}
 
-		return norm.NFC.String(strings.Join(arr, ""))
+		return strings.Join(arr, "")
 	}
 }
 
@@ -1607,7 +1605,7 @@ func createScriptFunction(lang langList) func(string) string {
 	return func(s string) string {
 		var arr []string
 
-		for _, v := range norm.NFC.String(s) {
+		for _, v := range s {
 			l := string(v)
 
 			if k, ok := obj[l]; ok {
@@ -1623,7 +1621,7 @@ func createScriptFunction(lang langList) func(string) string {
 			}
 		}
 
-		return norm.NFC.String(strings.Join(arr, ""))
+		return strings.Join(arr, "")
 	}
 }
 
@@ -1632,7 +1630,7 @@ func dataToIAST(data string) string {
 	data = string(
 		regexp.
 			MustCompile(`[\[\]{}^~@#$%&*_;.<>\n\v\t\r\f]`).
-			ReplaceAll([]byte(norm.NFC.String(data)), []byte("")),
+			ReplaceAll([]byte(data), []byte("")),
 	)
 
 	var ans []string
@@ -1774,7 +1772,7 @@ func dataToIAST(data string) string {
 		ans = append(ans, strings.Join(arr, ""))
 	}
 
-	return norm.NFC.String(strings.Join(ans, ""))
+	return strings.Join(ans, "")
 }
 
 // Convert IAST to UAST
@@ -1783,7 +1781,7 @@ func iastToUAST(data string) string {
 	for _, v := range string(
 		regexp.
 			MustCompile(`[\[\]{}^~@#$%&*\-_;<>]`).
-			ReplaceAll([]byte(norm.NFC.String(data)), []byte("")),
+			ReplaceAll([]byte(data), []byte("")),
 	) {
 		str = append(str, string(v))
 	}
@@ -1949,7 +1947,7 @@ func iastToUAST(data string) string {
 		}
 	}
 
-	return norm.NFC.String(strings.Join(final, ""))
+	return strings.Join(final, "")
 }
 
 // Function to create the function of parser
@@ -2046,14 +2044,14 @@ func createDataFunction(lang langList) func(string) string {
 			ans = append(ans, strings.Join(arr, ""))
 		}
 
-		return norm.NFC.String(strings.Join(ans, ""))
+		return strings.Join(ans, "")
 	}
 }
 
 // Convert देवनागरी to UAST
 func devanāgarīToUAST(data string) string {
 	var str []string
-	for _, v := range norm.NFC.String(data) {
+	for _, v := range data {
 		str = append(str, string(v))
 	}
 
@@ -2120,7 +2118,7 @@ func devanāgarīToUAST(data string) string {
 		arr = append(arr, val)
 	}
 
-	return norm.NFC.String(strings.Join(arr, ""))
+	return strings.Join(arr, "")
 }
 
 // Convert SLP1 to IAST
@@ -2132,7 +2130,7 @@ func slpToIAST(data string) string {
 		}
 	}
 
-	return norm.NFC.String(strings.Join(str, ""))
+	return strings.Join(str, "")
 }
 
 type funcList string

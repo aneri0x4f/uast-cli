@@ -15,6 +15,7 @@ import (
 	"strings"
 
 	"github.com/aneri0x4f/uast-cli/internal/utils"
+	"golang.org/x/text/unicode/norm"
 )
 
 func writeBuf(buf *bufio.ReadWriter, s string) {
@@ -170,7 +171,7 @@ func main() {
 		if k, ok := utils.Convertors[*from][*to]; ok {
 			var ans []string
 
-			for _, i := range strings.Split(string(f), "\n") {
+			for _, i := range strings.Split(norm.NFC.String(string(f)), "\n") {
 				var arr []string
 
 				for _, j := range strings.Split(i, " ") {
@@ -180,7 +181,7 @@ func main() {
 					arr = append(arr, j)
 				}
 
-				ans = append(ans, strings.Join(arr, " "))
+				ans = append(ans, norm.NFC.String(strings.Join(arr, " ")))
 			}
 
 			if os.WriteFile(*output, []byte(strings.Join(ans, "\n")), 0666) != nil {
