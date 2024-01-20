@@ -4,5 +4,7 @@
   "editor.trimAutoWhitespace": true,
   "editor.autoClosingBrackets": "always",
   "editor.autoIndent": "advanced",
-  "editor.defaultFormatter": "golang.go"
+  "[go]": {
+    "editor.defaultFormatter": "golang.go"
+  }
 }
