@@ -2,19 +2,19 @@
 .PHONY: all format install clean upgrade test
 
 BIN = bin
-CFLAGS = -ldflags "-w -s" -x
+CFLAGS = -ldflags "-w -s" -x -v
 PKG = ./cmd/uast
 
 all:
 	@echo "=====Building locally====="
-	go build -v -o $(BIN)/ $(CFLAGS) $(PKG)
+	go build -o $(BIN)/ $(CFLAGS) $(PKG)
 
 format:
 	gofmt -s -w $(shell find . -name "*.go")
 
 install: upgrade all
 	@echo "=====Installing binary to PATH====="
-	go install $(CFLAGS) -v $(PKG)
+	go install $(CFLAGS) $(PKG)
 
 clean:
 	go clean -i -x $(PKG)
