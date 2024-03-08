@@ -5,5 +5,8 @@
     "vscode": {
       "extensions": ["golang.go", "ms-vscode.makefile-tools"]
     }
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {}
   }
 }
