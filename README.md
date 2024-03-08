@@ -10,7 +10,7 @@ To install this program, you will need to install [Go](https://go.dev/)
 After that, simply run:
 
 ```bash
-go install github.com/aneri0x4f/uast-cli/cmd/uast@latest
+go install -ldflags "-w -s" -x -v -trimpath github.com/aneri0x4f/uast-cli/cmd/uast@latest
 ```
 
 To remove,
