@@ -1806,7 +1806,7 @@ func iastToUAST(data string) string {
 		if _, ok := charDict[sa].consonants[curr]; ok {
 			if _, ok := slices.BinarySearch(unAspiratedConsonants, curr); ok {
 				if next == "a" && (i+2 < len(str) && str[i+2] == "h") {
-					arr = append(arr, curr+"\\")
+					arr = append(arr, curr+"a\\")
 					i += 2
 					continue
 				}
