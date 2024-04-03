@@ -1,13 +1,13 @@
 .DEFAULT_GOAL := all
 .PHONY: all format install clean upgrade test
 
-BIN = bin
+BIN = bin/
 CFLAGS = -ldflags "-w -s" -x -v -trimpath
 PKG = ./cmd/uast
 
 all:
 	@echo "=====Building locally====="
-	go build -o $(BIN)/ $(CFLAGS) $(PKG)
+	go build -o $(BIN) $(CFLAGS) $(PKG)
 
 format:
 	gofmt -s -w $(shell find . -name "*.go")
