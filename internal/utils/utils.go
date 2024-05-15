@@ -1868,6 +1868,12 @@ func iastToUAST(data string) string {
 				continue
 			}
 
+			if next == "ã" {
+				arr = append(arr, curr+"-", "ã")
+				i += 2
+				continue
+			}
+
 			arr = append(arr, curr)
 			i++
 			continue

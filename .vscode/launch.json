@@ -12,7 +12,10 @@
       "console": "integratedTerminal",
       "program": "${workspaceFolder}/cmd/uast",
       "cwd": "${workspaceFolder}",
-      "args": ["-to", "iast"]
+      "args": ["-to", "iast"],
+      "hideSystemGoroutines": true,
+      "preLaunchTask": "build",
+      "postDebugTask": "build"
     }
   ]
 }
