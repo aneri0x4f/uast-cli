@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+title: "UAST: Unicode Aware Sanskrit Transliteration"
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Aneri
+    family-names: Dalwadi
+    email: aneri.d@ahduni.edu.in
+    orcid: "https://orcid.org/0000-0002-1771-1576"
+  - given-names: Dhruvil
+    family-names: Dave
+    email: dhruvil.d@ahduni.edu.in
+    orcid: "https://orcid.org/0000-0003-0616-7277"
+identifiers:
+  - type: doi
+    value: 10.48550/ARXIV.2203.14277
+  - type: url
+    value: "https://arxiv.org/abs/2203.14277"
+repository-code: "https://github.com/dhruvildave/uast"
+url: "https://uast.dev"
+repository: "https://github.com/aneri0x4f/uast-cli"
+keywords:
+  - Human-Computer Interaction (cs.HC)
+  - "FOS: Computer and information sciences, H.5.2"
+license: CC-BY-4.0
