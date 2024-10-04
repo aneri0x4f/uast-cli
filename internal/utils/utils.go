@@ -812,7 +812,6 @@ var iastDataDict = charMap{
 	"ऽ": "'",
 	"।": ".",
 	"॥": "..",
-	"ॐ": "om",
 	"ã": "au",
 }
 
