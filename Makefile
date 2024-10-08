@@ -10,7 +10,7 @@ all:
 	go build -o $(BIN) $(CFLAGS) $(PKG)
 
 format:
-	gofmt -s -w $(shell find . -name "*.go")
+	gofmt -e -s -w $(shell find . -name "*.go")
 
 install: upgrade all
 	@echo "=====Installing binary to PATH====="
