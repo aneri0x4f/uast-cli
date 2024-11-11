@@ -1,5 +1,5 @@
 module github.com/aneri0x4f/uast-cli
 
-go 1.23.2
+go 1.23.3
 
-require golang.org/x/text v0.19.0
+require golang.org/x/text v0.20.0
