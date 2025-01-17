@@ -1,5 +1,5 @@
 // Made with ♥ in Bhāratavarṣa by Aneri Dalwadi and Dhruvil Dave
-// भारतवर्षे अनेर्या अनिरुद्धेन च प्रणयात् एव निर्मित।
+// भारतवर्षे अनेर्या अनिरुद्धेन च प्रणयादेव निर्मितम्।
 
 package main
 
