@@ -2,7 +2,7 @@
 .PHONY: all format install clean upgrade test
 
 BIN = bin/
-CFLAGS = -ldflags "-s" -x -v -trimpath
+CFLAGS = -ldflags "-s" -x -v -trimpath -gcflags "-m"
 PKG = ./cmd/uast
 
 all:
