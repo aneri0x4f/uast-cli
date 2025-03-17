@@ -1048,7 +1048,7 @@ func createHandleUnicode(lang langList) func(string) string {
 
 		var arr []string
 
-		for i := 0; i < len(str); {
+		for i := 0; i < len(str); i++ {
 			curr := str[i]
 
 			if curr == "/" {
@@ -1072,12 +1072,10 @@ func createHandleUnicode(lang langList) func(string) string {
 					arr = append(arr, v)
 				}
 
-				i++
 				continue
 			}
 
 			arr = append(arr, curr)
-			i++
 		}
 
 		return strings.Join(arr, "")
@@ -1643,7 +1641,7 @@ func dataToIAST(data string) string {
 
 	var ans []string
 
-	for _, split := range strings.Split(data, "\\") {
+	for split := range strings.SplitSeq(data, "\\") {
 		if _, ok := charDict[sa].numbers[split]; ok {
 			ans = append(ans, split)
 			continue
@@ -1971,7 +1969,7 @@ func createDataFunction(lang langList) func(string) string {
 	return func(data string) string {
 		var ans []string
 
-		for _, split := range strings.Split(data, "\\") {
+		for split := range strings.SplitSeq(data, "\\") {
 			if _, ok := obj.misc[split]; ok {
 				ans = append(ans, split)
 				continue
@@ -2071,7 +2069,7 @@ func devanāgarīToUAST(data string) string {
 
 	var arr []string
 
-	for i := 0; i < len(str); i++ {
+	for i := range str {
 		curr := str[i]
 
 		var next string
