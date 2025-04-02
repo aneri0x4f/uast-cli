@@ -22,7 +22,7 @@ type langMap = struct {
 	misc       charMap
 }
 
-type langList string
+type langList = string
 
 const (
 	gu langList = "gu"
