@@ -110,9 +110,10 @@ func main() {
 		var buildtime string
 		if info, ok := debug.ReadBuildInfo(); ok {
 			for _, v := range info.Settings {
-				if v.Key == "vcs.revision" {
+				switch v.Key {
+				case "vcs.revision":
 					commit = v.Value
-				} else if v.Key == "vcs.time" {
+				case "vcs.time":
 					buildtime = v.Value
 				}
 			}
@@ -171,10 +172,10 @@ func main() {
 		if k, ok := utils.Convertors[*from][*to]; ok {
 			var ans []string
 
-			for _, i := range strings.Split(norm.NFC.String(string(f)), "\n") {
+			for i := range strings.SplitSeq(norm.NFC.String(string(f)), "\n") {
 				var arr []string
 
-				for _, j := range strings.Split(i, " ") {
+				for j := range strings.SplitSeq(i, " ") {
 					for _, f := range k {
 						j = f(j)
 					}
@@ -211,9 +212,9 @@ func main() {
 		}
 
 		var arr []string
-		l := strings.Split(norm.NFC.String(strings.TrimSpace(s)), " ")
+		l := strings.SplitSeq(norm.NFC.String(strings.TrimSpace(s)), " ")
 
-		for _, v := range l {
+		for v := range l {
 			if k, ok := utils.Convertors[*from][*to]; ok {
 				for _, f := range k {
 					v = f(v)
